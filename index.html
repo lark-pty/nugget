@@ -250,7 +250,7 @@
   <footer class="mt-16 bg-amber-900 text-amber-100 py-10 border-t-4 border-amber-600">
     <div class="max-w-5xl mx-auto px-4 text-center space-y-4">
       <p class="font-serif text-2xl italic font-semibold">"Named with love after Abu Titi, cherished by Grandma and all our family."</p>
-      <p class="text-xs text-amber-300/80">Created with love for Leyla Sofía &bull; Digital Memory Journal &bull; Feb 2027</p>
+      <p class="text-xs text-amber-300/80">Created with love for Leyla Sofía &bull; Digital Memory Journal &bull; Mar 2027</p>
     </div>
   </footer>
 
@@ -369,13 +369,13 @@
         title: "To My Precious Leyla Sofía",
         author: "Abu Titi",
         date: "2026-10-15",
-        content: "My dear grandbaby, as we await your arrival in February 2027, my heart overflows with warmth. To carry my name is a gift, but to see you grow will be my greatest blessing."
+        content: "My dear grandbaby, as we await your arrival in March 2027, my heart overflows with warmth. To carry my name is a gift, but to see you grow will be my greatest blessing."
       },
       {
         id: "letter-2",
         title: "A Grandma's Special Blessing",
         author: "Grandma",
-        date: "2026-11-01",
+        date: "2026-10-14",
         content: "Every single day, Grandma prays for your safe arrival, your good health, and your happiness. Always remember that you are surrounded by a family that loves you beyond measure."
       }
     ];
@@ -383,8 +383,8 @@
     const defaultEntries = [
       {
         id: "entry-1",
-        title: "Counting down to February 2027!",
-        author: "Mom (Maria)",
+        title: "Counting down to March 2027!",
+        author: "Mom (Stephanie)",
         category: "Daily Note",
         date: "2026-10-10",
         message: "We are preparing your nursery in warm honey and terracotta tones. Everyone in the family is so excited to welcome you, especially Abu Titi and Grandma!",
@@ -403,8 +403,9 @@
 
     const defaultMilestones = [
       { id: "m1", text: "First Ultrasound Photo", done: true, updatedBy: "Mom" },
+      { id: "m1", text: "Gender Reveal", done: true, updatedBy: "Abu Titi" },
       { id: "m2", text: "Nursery Room Completed", done: false, updatedBy: "" },
-      { id: "m3", text: "Welcome to the World (Feb 2027)", done: false, updatedBy: "" },
+      { id: "m3", text: "Welcome to the World (Mar 2027)", done: false, updatedBy: "" },
       { id: "m4", text: "First Smile", done: false, updatedBy: "" },
       { id: "m5", text: "First Visit with Abu Titi & Grandma", done: false, updatedBy: "" },
       { id: "m6", text: "First Steps", done: false, updatedBy: "" }
@@ -501,7 +502,7 @@
     }
 
     function startCountdown() {
-      const targetDate = new Date("February 1, 2027 00:00:00").getTime();
+      const targetDate = new Date("March 1, 2027 00:00:00").getTime();
 
       function update() {
         const now = new Date().getTime();
