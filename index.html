@@ -106,7 +106,7 @@
         Leyla Sofía's Life Journal
       </h1>
       <p class="max-w-2xl mx-auto text-amber-800/90 text-sm sm:text-base leading-relaxed mb-8">
-        A sun-lit family sanctuary of stories, prayers, letters from Abu Titi & Grandma, and milestone memories for our sweet Leyla Sofía.[cite: 2]
+        A sun-lit family sanctuary of stories, prayers, letters from Abu Titi & Grandma, and milestone memories for our sweet Leyla Sofía[cite: 2].
       </p>
 
       <!-- Countdown Timer Box -->
@@ -226,7 +226,7 @@
       <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-amber-200 pb-4">
         <div>
           <h2 class="font-serif text-3xl font-bold text-amber-900">Family Story Feed</h2>
-          <p class="text-sm text-amber-800/80">Every family member's posts, photos, and updates with clear author names.</p>
+          <p class="text-sm text-amber-800/80">Every family member's posts, photos, videos, and updates with clear author names.</p>
         </div>
 
         <!-- Filter & Search Bar -->
@@ -305,6 +305,11 @@
         </div>
 
         <div>
+          <label class="block text-xs font-bold uppercase text-amber-800 mb-1">YouTube Video Link (Optional)</label>
+          <input type="text" id="entry-video-input" placeholder="e.g. https://www.youtube.com/watch?v=..." class="w-full px-4 py-2 border border-amber-200 rounded-xl focus:ring-2 focus:ring-amber-500 outline-none text-sm">
+        </div>
+
+        <div>
           <label class="block text-xs font-bold uppercase text-amber-800 mb-1">Memory / Message</label>
           <textarea id="entry-message-input" rows="4" required class="w-full px-4 py-2 border border-amber-200 rounded-xl focus:ring-2 focus:ring-amber-500 outline-none text-sm"></textarea>
         </div>
@@ -355,6 +360,11 @@
         </div>
 
         <div>
+          <label class="block text-xs font-bold uppercase text-amber-800 mb-1">YouTube Video Link (Optional)</label>
+          <input type="text" id="letter-video-input" placeholder="e.g. https://www.youtube.com/watch?v=..." class="w-full px-4 py-2 border border-amber-200 rounded-xl focus:ring-2 focus:ring-terracotta-500 outline-none text-sm bg-white">
+        </div>
+
+        <div>
           <label class="block text-xs font-bold uppercase text-amber-800 mb-1">Letter Content (Prayer, Wisdom, Memories)</label>
           <textarea id="letter-content-input" rows="6" required placeholder="My sweet Leyla Sofía..." class="w-full px-4 py-3 border border-amber-200 rounded-xl focus:ring-2 focus:ring-terracotta-500 outline-none text-sm bg-white font-serif leading-relaxed"></textarea>
         </div>
@@ -367,14 +377,14 @@
     </div>
   </div>
 
-  <!-- Modal: Edit Milestone Photo -->
+  <!-- Modal: Edit Milestone Media (Photo & Video) -->
   <div id="modal-milestone" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
     <div class="bg-white rounded-3xl max-w-md w-full p-6 border-2 border-amber-300 shadow-2xl relative">
       <button id="btn-close-milestone-modal" class="absolute top-4 right-4 text-amber-400 hover:text-amber-800 text-xl">
         <i class="fa-solid fa-xmark"></i>
       </button>
 
-      <h3 class="font-serif text-xl font-bold text-amber-900 mb-2">Milestone Photo</h3>
+      <h3 class="font-serif text-xl font-bold text-amber-900 mb-2">Milestone Media</h3>
       <p id="milestone-modal-text" class="text-xs text-amber-700 mb-4 font-semibold"></p>
 
       <form id="form-milestone" class="space-y-4">
@@ -384,9 +394,13 @@
           <label class="block text-xs font-bold uppercase text-amber-800 mb-1">Upload Photo from Device (Optional)</label>
           <input type="file" id="milestone-image-file" accept="image/*" class="w-full text-xs text-amber-900 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-amber-100 file:text-amber-800 hover:file:bg-amber-200 cursor-pointer border border-amber-200 rounded-xl p-1">
         </div>
+        <div>
+          <label class="block text-xs font-bold uppercase text-amber-800 mb-1">YouTube Video Link (Optional)</label>
+          <input type="text" id="milestone-video-input" placeholder="e.g. https://www.youtube.com/watch?v=..." class="w-full px-4 py-2 border border-amber-200 rounded-xl focus:ring-2 focus:ring-amber-500 outline-none text-sm">
+        </div>
         <div class="flex justify-end gap-3 pt-2">
           <button type="button" id="btn-cancel-milestone" class="px-4 py-2 text-sm text-amber-700 hover:bg-amber-100 rounded-xl">Cancel</button>
-          <button type="submit" class="px-5 py-2 text-sm bg-amber-600 hover:bg-amber-700 text-white rounded-xl font-medium shadow">Save Photo</button>
+          <button type="submit" class="px-5 py-2 text-sm bg-amber-600 hover:bg-amber-700 text-white rounded-xl font-medium shadow">Save Media</button>
         </div>
       </form>
     </div>
@@ -405,6 +419,19 @@
     </div>
   </div>
 
+  <!-- Modal: View YouTube Video Player -->
+  <div id="modal-view-video" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-2xl w-full p-5 border border-amber-300 shadow-2xl relative">
+      <button onclick="document.getElementById('modal-view-video').classList.add('hidden'); document.getElementById('view-video-iframe').src='';" class="absolute top-3 right-4 text-amber-400 hover:text-amber-800 text-xl z-10">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <h4 id="view-video-title" class="font-serif text-lg font-bold text-amber-950 mb-3">Video Player</h4>
+      <div class="rounded-2xl overflow-hidden aspect-video bg-black flex items-center justify-center">
+        <iframe id="view-video-iframe" src="" class="w-full h-full" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
     import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
@@ -419,7 +446,8 @@
         author: "Abu Titi",
         date: "2026-10-15",
         content: "My dear grandbaby, as we await your arrival in March 2027, my heart overflows with warmth. To carry my name is a gift, but to see you grow will be my greatest blessing. Every moment leading up to your arrival fills our home with unimaginable joy and excitement, knowing that a wonderful new chapter is about to unfold for our entire family.",
-        image: "https://images.unsplash.com/photo-1519689680058-324335c77eba?auto=format&fit=crop&w=800&q=80"
+        image: "https://images.unsplash.com/photo-1519689680058-324335c77eba?auto=format&fit=crop&w=800&q=80",
+        video: ""
       },
       {
         id: "letter-2",
@@ -427,7 +455,8 @@
         author: "Grandma",
         date: "2026-11-01",
         content: "Every single day, Grandma prays for your safe arrival, your good health, and your happiness. Always remember that you are surrounded by a family that loves you beyond measure and will always be here to guide, support, and cherish you through every step of your wonderful journey in this life.",
-        image: ""
+        image: "",
+        video: ""
       }
     ];
 
@@ -439,7 +468,8 @@
         category: "Daily Note",
         date: "2026-10-10",
         message: "We are preparing your nursery in warm honey and terracotta tones. Everyone in the family is so excited to welcome you, especially Abu Titi and Grandma! It is amazing to watch all the preparations coming together as we get closer to meeting our little angel.",
-        image: "https://images.unsplash.com/photo-1519689680058-324335c77eba?auto=format&fit=crop&w=800&q=80"
+        image: "https://images.unsplash.com/photo-1519689680058-324335c77eba?auto=format&fit=crop&w=800&q=80",
+        video: ""
       },
       {
         id: "entry-2",
@@ -448,20 +478,21 @@
         category: "Family",
         date: "2026-09-28",
         message: "Choosing your name 'Leyla Sofía' brought tears of happiness to my eyes. It is an honor to share this sacred bond with you.",
-        image: ""
+        image: "",
+        video: ""
       }
     ];
 
     const defaultMilestones = [
-      { id: "m1", text: "Announcement", done: true, updatedBy: "Mom", image: "" },
-      { id: "m2", text: "First Ultrasound Photo", done: false, updatedBy: "", image: "" },
-      { id: "m3", text: "Madrina & Padrino", done: false, updatedBy: "", image: "" },
-      { id: "m4", text: "Gender Reveal", done: false, updatedBy: "", image: "" },
-      { id: "m5", text: "Nursery Room Completed", done: false, updatedBy: "", image: "" },
-      { id: "m6", text: "Welcome to the World (Mar 2027)", done: false, updatedBy: "", image: "" },
-      { id: "m7", text: "First Visit with Abu Titi & Grandma", done: false, updatedBy: "", image: "" },
-      { id: "m8", text: "First Smile", done: false, updatedBy: "", image: "" },
-      { id: "m9", text: "First Steps", done: false, updatedBy: "", image: "" }
+      { id: "m1", text: "Announcement", done: true, updatedBy: "Mom", image: "", video: "" },
+      { id: "m2", text: "First Ultrasound Photo", done: false, updatedBy: "", image: "", video: "" },
+      { id: "m3", text: "Madrina & Padrino", done: false, updatedBy: "", image: "", video: "" },
+      { id: "m4", text: "Gender Reveal", done: false, updatedBy: "", image: "", video: "" },
+      { id: "m5", text: "Nursery Room Completed", done: false, updatedBy: "", image: "", video: "" },
+      { id: "m6", text: "Welcome to the World (Mar 2027)", done: false, updatedBy: "", image: "", video: "" },
+      { id: "m7", text: "First Visit with Abu Titi & Grandma", done: false, updatedBy: "", image: "", video: "" },
+      { id: "m8", text: "First Smile", done: false, updatedBy: "", image: "", video: "" },
+      { id: "m9", text: "First Steps", done: false, updatedBy: "", image: "", video: "" }
     ];
 
     let letters = JSON.parse(localStorage.getItem('leyla_letters')) || defaultLetters;
@@ -473,7 +504,21 @@
     let auth = null;
     let user = null;
 
-    // Optimized image compressor to prevent storage quota limits and inconsistent uploads
+    function getYouTubeEmbedUrl(url) {
+      if (!url) return '';
+      let videoId = '';
+      if (url.includes('youtu.be/')) {
+        videoId = url.split('youtu.be/')[1]?.split('?')[0];
+      } else if (url.includes('youtube.com/watch')) {
+        const urlParams = new URLSearchParams(new URL(url).search);
+        videoId = urlParams.get('v');
+      } else if (url.includes('youtube.com/embed/')) {
+        videoId = url.split('youtube.com/embed/')[1]?.split('?')[0];
+      }
+      return videoId ? `https://www.youtube.com/embed/${videoId}` : url;
+    }
+
+    // Optimized image compressor to prevent storage quota limits
     function compressImage(file, maxWidth = 900, maxHeight = 900, quality = 0.8) {
       return new Promise((resolve, reject) => {
         const reader = new FileReader();
@@ -593,7 +638,7 @@
         localStorage.setItem(key, JSON.stringify(val));
       } catch (e) {
         console.error("Storage quota exceeded.", e);
-        alert("Storage warning: Photos are getting too large for browser memory. Please use slightly smaller images.");
+        alert("Storage warning: Media items are getting too large for browser memory. Please use slightly smaller images.");
       }
     }
 
@@ -668,479 +713,4 @@
         if (item.author.toLowerCase().includes('abu titi')) {
           badgeColor = "bg-terracotta-100 text-terracotta-700 border-terracotta-300";
         } else if (item.author.toLowerCase().includes('grandma')) {
-          badgeColor = "bg-amber-200 text-amber-900 border-amber-400";
-        }
-
-        const optimizedImageSrc = formatImageUrl(item.image, { width: 800, height: 600, fit: 'inside' });
-
-        card.innerHTML = `
-          <div>
-            <div class="flex items-center justify-between mb-3 border-b border-amber-200/60 pb-2">
-              <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold border ${badgeColor}">
-                <i class="fa-solid fa-feather"></i> Letter from: ${item.author || "Family"}
-              </span>
-              <div class="flex items-center gap-2">
-                ${item.image ? `
-                  <button onclick="viewPhoto('${item.image}', '${item.title.replace(/'/g, "\\'")}')" class="text-amber-700 hover:text-amber-900 bg-amber-200/80 px-2 py-1 rounded-lg transition text-xs flex items-center gap-1" title="View Letter Photo">
-                    <i class="fa-solid fa-camera"></i> Photo
-                  </button>
-                ` : ''}
-                <span class="text-xs font-semibold text-amber-700 bg-white/80 px-2.5 py-1 rounded-full border border-amber-200">${item.date}</span>
-              </div>
-            </div>
-            <h3 class="font-serif text-xl font-bold text-amber-950 mb-3">${item.title}</h3>
-
-            ${item.image ? `
-              <div class="rounded-xl overflow-hidden max-h-56 bg-amber-50/50 border border-amber-100 flex items-center justify-center relative group cursor-pointer mb-3" onclick="viewPhoto('${item.image}', '${item.title.replace(/'/g, "\\'")}')">
-                <img src="${optimizedImageSrc}" alt="${item.title}" class="max-h-56 w-auto object-contain object-center" onerror="this.style.display='none'">
-              </div>
-            ` : ''}
-            
-            <div class="relative">
-              <div id="letter-msg-${item.id}" class="font-serif text-amber-900/90 text-sm leading-relaxed whitespace-pre-line italic bg-white/50 p-4 rounded-xl border border-amber-100 story-collapsed">
-                "${item.content}"
-              </div>
-              <button id="btn-toggle-letter-${item.id}" onclick="toggleLetterText('${item.id}')" class="hidden text-xs font-bold text-amber-700 hover:text-amber-900 mt-1.5 focus:outline-none">
-                More...
-              </button>
-            </div>
-          </div>
-
-          <div class="flex justify-between items-center mt-4 pt-2 border-t border-amber-200/40">
-            <button onclick="openLetterPhotoModal('${item.id}')" class="text-xs text-amber-800 hover:text-amber-950 font-semibold flex items-center gap-1.5 bg-amber-200/50 px-2.5 py-1 rounded-lg border border-amber-300">
-              <i class="fa-solid fa-image"></i> ${item.image ? 'Edit Photo' : 'Add Photo'}
-            </button>
-            <div class="flex gap-2">
-              <button onclick="editLetter('${item.id}')" class="text-xs text-amber-700 hover:text-amber-900 font-medium px-2 py-1 rounded hover:bg-amber-100/60">
-                <i class="fa-solid fa-pen"></i> Edit
-              </button>
-              <button onclick="deleteLetter('${item.id}')" class="text-xs text-terracotta-600 hover:text-terracotta-800 font-medium px-2 py-1 rounded hover:bg-terracotta-100/60">
-                <i class="fa-solid fa-trash"></i> Delete
-              </button>
-            </div>
-          </div>
-        `;
-        container.appendChild(card);
-
-        setTimeout(() => {
-          const el = document.getElementById(`letter-msg-${item.id}`);
-          const btn = document.getElementById(`btn-toggle-letter-${item.id}`);
-          if (el && btn && el.scrollHeight > el.clientHeight + 4) {
-            btn.classList.remove('hidden');
-          }
-        }, 50);
-      });
-    }
-
-    function renderMilestones() {
-      const container = document.getElementById('milestones-grid');
-      container.innerHTML = '';
-
-      let completedCount = 0;
-
-      milestones.forEach(m => {
-        if (m.done) completedCount++;
-
-        const box = document.createElement('div');
-        box.className = `flex flex-col justify-between p-3 rounded-xl border transition ${
-          m.done ? 'bg-amber-100/70 border-amber-300 text-amber-950' : 'bg-white border-amber-200 text-amber-800 hover:bg-amber-50'
-        }`;
-        
-        box.innerHTML = `
-          <div class="flex items-center justify-between gap-2">
-            <label class="flex items-center gap-2.5 cursor-pointer flex-grow">
-              <input type="checkbox" ${m.done ? 'checked' : ''} onchange="toggleMilestone('${m.id}')" class="w-4 h-4 text-amber-600 rounded border-amber-300 focus:ring-amber-500">
-              <span class="text-xs font-medium ${m.done ? 'line-through text-amber-700' : ''}">${m.text}</span>
-            </label>
-            
-            <div class="flex items-center gap-1.5">
-              ${m.image ? `
-                <button onclick="viewPhoto('${m.image}', '${m.text.replace(/'/g, "\\'")}')" class="text-amber-700 hover:text-amber-900 bg-amber-200/80 p-1.5 rounded-lg transition" title="View Milestone Photo">
-                  <i class="fa-solid fa-camera text-xs"></i>
-                </button>
-              ` : ''}
-              <button onclick="openMilestoneModal('${m.id}')" class="text-amber-600 hover:text-amber-800 p-1.5 rounded-lg hover:bg-amber-200/50 transition" title="Add/Edit Photo">
-                <i class="fa-solid fa-image text-xs"></i>
-              </button>
-            </div>
-          </div>
-          ${m.updatedBy ? `<span class="text-[10px] text-amber-600 pl-6 mt-1">Updated by: ${m.updatedBy}</span>` : ''}
-        `;
-        container.appendChild(box);
-      });
-
-      const pct = Math.round((completedCount / milestones.length) * 100) || 0;
-      document.getElementById('milestone-progress-bar').style.width = `${pct}%`;
-      document.getElementById('milestone-progress-text').textContent = `${pct}% Completed (${completedCount}/${milestones.length})`;
-    }
-
-    function renderFeed() {
-      const container = document.getElementById('feed-container');
-      const category = document.getElementById('category-filter').value;
-      const search = document.getElementById('search-input').value.toLowerCase();
-
-      container.innerHTML = '';
-
-      let filtered = entries.filter(item => {
-        const matchesCategory = category === 'ALL' || item.category === category;
-        const matchesSearch = item.title.toLowerCase().includes(search) || 
-                              item.message.toLowerCase().includes(search) ||
-                              (item.author && item.author.toLowerCase().includes(search));
-        return matchesCategory && matchesSearch;
-      });
-
-      filtered.sort((a, b) => new Date(b.date) - new Date(a.date));
-
-      if (filtered.length === 0) {
-        container.innerHTML = `<div class="bg-white rounded-2xl p-8 text-center text-amber-800 italic border border-amber-200">No memories found matching your search.</div>`;
-        return;
-      }
-
-      filtered.forEach(item => {
-        const card = document.createElement('article');
-        card.className = "bg-white rounded-3xl border border-amber-200/80 p-6 sm:p-8 shadow-sm hover:shadow-md transition space-y-4";
-        
-        const authorName = item.author || "Family Member";
-        let badgeColor = "bg-amber-100 text-amber-900 border-amber-200";
-        if (authorName.toLowerCase().includes("abu titi")) {
-          badgeColor = "bg-terracotta-100 text-terracotta-700 border-terracotta-200 font-bold";
-        } else if (authorName.toLowerCase().includes("grandma")) {
-          badgeColor = "bg-amber-200 text-amber-950 border-amber-300 font-bold";
-        }
-
-        const optimizedImageSrc = formatImageUrl(item.image, { width: 800, height: 600, fit: 'inside' });
-
-        card.innerHTML = `
-          <div class="flex flex-wrap items-center justify-between gap-2 border-b border-amber-100 pb-3">
-            <div class="flex items-center gap-2">
-              <span class="px-3 py-1 rounded-full text-xs font-semibold border ${badgeColor}">
-                <i class="fa-solid fa-user-heart text-[10px] mr-1"></i> Posted by: ${authorName}
-              </span>
-              <span class="px-2.5 py-1 bg-amber-50 text-amber-700 text-xs rounded-full border border-amber-200">
-                ${item.category}
-              </span>
-            </div>
-            <div class="flex items-center gap-2">
-              ${item.image ? `
-                <button onclick="viewPhoto('${item.image}', '${item.title.replace(/'/g, "\\'")}')" class="text-amber-700 hover:text-amber-900 bg-amber-100 px-2.5 py-1 rounded-lg transition text-xs flex items-center gap-1 font-semibold" title="View Story Photo">
-                  <i class="fa-solid fa-camera"></i> Camera
-                </button>
-              ` : ''}
-              <span class="text-xs text-amber-600 font-medium">${item.date}</span>
-            </div>
-          </div>
-
-          <h3 class="font-serif text-2xl font-bold text-amber-950">${item.title}</h3>
-
-          ${item.image ? `
-            <div class="rounded-2xl overflow-hidden max-h-72 bg-amber-50/50 border border-amber-100 flex items-center justify-center relative group cursor-pointer" onclick="viewPhoto('${item.image}', '${item.title.replace(/'/g, "\\'")}')">
-              <img src="${optimizedImageSrc}" alt="${item.title}" class="max-h-72 w-auto object-contain object-center" onerror="this.style.display='none'">
-              <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-white text-sm font-semibold gap-2">
-                <i class="fa-solid fa-magnifying-glass-plus"></i> View Full Photo
-              </div>
-            </div>
-          ` : ''}
-
-          <div class="relative">
-            <div id="msg-container-${item.id}" class="text-amber-900/90 text-sm sm:text-base leading-relaxed whitespace-pre-line story-collapsed">
-              ${item.message}
-            </div>
-            <button id="btn-toggle-${item.id}" onclick="toggleStoryText('${item.id}')" class="hidden text-xs font-bold text-amber-700 hover:text-amber-900 mt-1.5 focus:outline-none">
-              More...
-            </button>
-          </div>
-
-          <div class="flex justify-end gap-3 pt-3 border-t border-amber-100 text-xs">
-            <button onclick="editEntry('${item.id}')" class="text-amber-700 hover:text-amber-900 font-medium">
-              <i class="fa-solid fa-pen"></i> Edit
-            </button>
-            <button onclick="deleteEntry('${item.id}')" class="text-terracotta-600 hover:text-terracotta-800 font-medium">
-              <i class="fa-solid fa-trash"></i> Delete
-            </button>
-          </div>
-        `;
-
-        container.appendChild(card);
-
-        setTimeout(() => {
-          const el = document.getElementById(`msg-container-${item.id}`);
-          const btn = document.getElementById(`btn-toggle-${item.id}`);
-          if (el && btn && el.scrollHeight > el.clientHeight + 4) {
-            btn.classList.remove('hidden');
-          }
-        }, 50);
-      });
-    }
-
-    // Handlers
-    window.toggleStoryText = function(id) {
-      const el = document.getElementById(`msg-container-${id}`);
-      const btn = document.getElementById(`btn-toggle-${id}`);
-      if (!el || !btn) return;
-
-      if (el.classList.contains('story-collapsed')) {
-        el.classList.remove('story-collapsed');
-        btn.textContent = 'Less...';
-      } else {
-        el.classList.add('story-collapsed');
-        btn.textContent = 'More...';
-      }
-    };
-
-    window.toggleLetterText = function(id) {
-      const el = document.getElementById(`letter-msg-${id}`);
-      const btn = document.getElementById(`btn-toggle-letter-${id}`);
-      if (!el || !btn) return;
-
-      if (el.classList.contains('story-collapsed')) {
-        el.classList.remove('story-collapsed');
-        btn.textContent = 'Less...';
-      } else {
-        el.classList.add('story-collapsed');
-        btn.textContent = 'More...';
-      }
-    };
-
-    window.openMilestoneModal = function(id) {
-      const item = milestones.find(m => m.id === id);
-      if (!item) return;
-      document.getElementById('milestone-modal-id').value = item.id;
-      document.getElementById('milestone-modal-text').textContent = item.text;
-      document.getElementById('milestone-image-input').value = item.image || '';
-      document.getElementById('milestone-image-file').value = '';
-      document.getElementById('modal-milestone').classList.remove('hidden');
-    };
-
-    window.openLetterPhotoModal = function(id) {
-      const item = letters.find(l => l.id === id);
-      if (!item) return;
-      document.getElementById('letter-id').value = item.id;
-      document.getElementById('letter-author-input').value = item.author || 'Abu Titi';
-      document.getElementById('letter-title-input').value = item.title;
-      document.getElementById('letter-date-input').value = item.date;
-      document.getElementById('letter-content-input').value = item.content;
-      document.getElementById('letter-image-input').value = item.image || '';
-      document.getElementById('letter-image-file').value = '';
-      
-      document.getElementById('modal-letter-title').textContent = "Edit Letter & Photo";
-      document.getElementById('modal-letter').classList.remove('hidden');
-    };
-
-    window.viewPhoto = function(url, title) {
-      document.getElementById('view-photo-title').textContent = title;
-      document.getElementById('view-photo-img').src = formatImageUrl(url, { width: 1000, height: 800, fit: 'inside' });
-      document.getElementById('modal-view-photo').classList.remove('hidden');
-    };
-
-    window.toggleMilestone = function(id) {
-      const savedUser = localStorage.getItem('leyla_saved_author') || "Family";
-      milestones = milestones.map(m => m.id === id ? { ...m, done: !m.done, updatedBy: m.done ? "" : savedUser } : m);
-      saveLocal('leyla_milestones', milestones);
-      const updated = milestones.find(m => m.id === id);
-      if (updated) saveCloudDoc('milestones', id, updated);
-      renderMilestones();
-    };
-
-    window.deleteLetter = function(id) {
-      letters = letters.filter(l => l.id !== id);
-      saveLocal('leyla_letters', letters);
-      deleteCloudDoc('letters', id);
-      renderLetters();
-    };
-
-    window.editLetter = function(id) {
-      openLetterPhotoModal(id);
-    };
-
-    window.deleteEntry = function(id) {
-      entries = entries.filter(e => e.id !== id);
-      saveLocal('leyla_entries', entries);
-      deleteCloudDoc('entries', id);
-      renderFeed();
-    };
-
-    window.editEntry = function(id) {
-      const item = entries.find(e => e.id === id);
-      if (!item) return;
-      document.getElementById('entry-id').value = item.id;
-      document.getElementById('entry-author-input').value = item.author || '';
-      document.getElementById('entry-title-input').value = item.title;
-      document.getElementById('entry-category-input').value = item.category;
-      document.getElementById('entry-date-input').value = item.date;
-      document.getElementById('entry-image-input').value = item.image || '';
-      document.getElementById('entry-image-file').value = '';
-      document.getElementById('entry-message-input').value = item.message;
-
-      document.getElementById('modal-entry-title').textContent = "Edit Story Memory";
-      document.getElementById('modal-entry').classList.remove('hidden');
-    };
-
-    document.addEventListener('DOMContentLoaded', () => {
-      startCountdown();
-      renderLetters();
-      renderMilestones();
-      renderFeed();
-      initFirebase();
-
-      document.querySelectorAll('.letter-tab').forEach(tabBtn => {
-        tabBtn.addEventListener('click', (e) => {
-          document.querySelectorAll('.letter-tab').forEach(b => {
-            b.classList.remove('bg-white', 'text-amber-900', 'shadow-sm');
-            b.classList.add('text-amber-800');
-          });
-          e.currentTarget.classList.add('bg-white', 'text-amber-900', 'shadow-sm');
-          e.currentTarget.classList.remove('text-amber-800');
-          
-          activeLetterTab = e.currentTarget.getAttribute('data-tab');
-          renderLetters();
-        });
-      });
-
-      document.getElementById('search-input').addEventListener('input', renderFeed);
-      document.getElementById('category-filter').addEventListener('change', renderFeed);
-
-      const savedAuthor = localStorage.getItem('leyla_saved_author') || '';
-
-      document.getElementById('btn-open-entry-modal').addEventListener('click', () => {
-        document.getElementById('form-entry').reset();
-        document.getElementById('entry-id').value = '';
-        document.getElementById('entry-image-input').value = '';
-        document.getElementById('entry-author-input').value = savedAuthor || 'Abu Titi';
-        document.getElementById('entry-date-input').value = new Date().toISOString().split('T')[0];
-        document.getElementById('modal-entry-title').textContent = "Add Family Story Memory";
-        document.getElementById('modal-entry').classList.remove('hidden');
-      });
-
-      document.getElementById('btn-open-letter-modal').addEventListener('click', () => {
-        document.getElementById('form-letter').reset();
-        document.getElementById('letter-id').value = '';
-        document.getElementById('letter-image-input').value = '';
-        document.getElementById('letter-author-input').value = savedAuthor || 'Abu Titi';
-        document.getElementById('letter-date-input').value = new Date().toISOString().split('T')[0];
-        document.getElementById('modal-letter-title').textContent = "Write a Special Letter";
-        document.getElementById('modal-letter').classList.remove('hidden');
-      });
-
-      document.getElementById('btn-close-entry-modal').addEventListener('click', () => document.getElementById('modal-entry').classList.add('hidden'));
-      document.getElementById('btn-cancel-entry').addEventListener('click', () => document.getElementById('modal-entry').classList.add('hidden'));
-
-      document.getElementById('btn-close-letter-modal').addEventListener('click', () => document.getElementById('modal-letter').classList.add('hidden'));
-      document.getElementById('btn-cancel-letter').addEventListener('click', () => document.getElementById('modal-letter').classList.add('hidden'));
-
-      document.getElementById('btn-close-milestone-modal').addEventListener('click', () => document.getElementById('modal-milestone').classList.add('hidden'));
-      document.getElementById('btn-cancel-milestone').addEventListener('click', () => document.getElementById('modal-milestone').classList.add('hidden'));
-
-      document.getElementById('form-milestone').addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const id = document.getElementById('milestone-modal-id').value;
-        const fileInput = document.getElementById('milestone-image-file');
-        let imageUrl = document.getElementById('milestone-image-input').value.trim();
-
-        if (fileInput.files && fileInput.files[0]) {
-          try {
-            imageUrl = await compressImage(fileInput.files[0]);
-          } catch (err) {
-            console.error("Error compressing milestone image:", err);
-          }
-        }
-
-        milestones = milestones.map(m => m.id === id ? { ...m, image: imageUrl } : m);
-        saveLocal('leyla_milestones', milestones);
-        const updated = milestones.find(m => m.id === id);
-        if (updated) saveCloudDoc('milestones', id, updated);
-
-        renderMilestones();
-        document.getElementById('modal-milestone').classList.add('hidden');
-      });
-
-      document.getElementById('form-entry').addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const authorName = document.getElementById('entry-author-input').value.trim();
-        if (authorName) localStorage.setItem('leyla_saved_author', authorName);
-
-        const id = document.getElementById('entry-id').value || `entry-${Date.now()}`;
-        const fileInput = document.getElementById('entry-image-file');
-        let imageUrl = document.getElementById('entry-image-input').value.trim();
-
-        if (fileInput.files && fileInput.files[0]) {
-          try {
-            imageUrl = await compressImage(fileInput.files[0]);
-          } catch (err) {
-            console.error("Error compressing story entry image:", err);
-          }
-        }
-
-        const newEntry = {
-          id,
-          title: document.getElementById('entry-title-input').value,
-          author: authorName || "Family Member",
-          category: document.getElementById('entry-category-input').value,
-          date: document.getElementById('entry-date-input').value,
-          image: imageUrl,
-          message: document.getElementById('entry-message-input').value
-        };
-
-        const idx = entries.findIndex(item => item.id === id);
-        if (idx >= 0) entries[idx] = newEntry;
-        else entries.unshift(newEntry);
-
-        saveLocal('leyla_entries', entries);
-        saveCloudDoc('entries', id, newEntry);
-        renderFeed();
-        document.getElementById('modal-entry').classList.add('hidden');
-      });
-
-      document.getElementById('form-letter').addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const authorName = document.getElementById('letter-author-input').value.trim();
-        if (authorName) localStorage.setItem('leyla_saved_author', authorName);
-
-        const id = document.getElementById('letter-id').value || `letter-${Date.now()}`;
-        const fileInput = document.getElementById('letter-image-file');
-        let imageUrl = document.getElementById('letter-image-input').value.trim();
-
-        if (fileInput.files && fileInput.files[0]) {
-          try {
-            imageUrl = await compressImage(fileInput.files[0]);
-          } catch (err) {
-            console.error("Error compressing letter image:", err);
-          }
-        }
-
-        const newLetter = {
-          id,
-          author: authorName || "Abu Titi",
-          title: document.getElementById('letter-title-input').value,
-          date: document.getElementById('letter-date-input').value,
-          content: document.getElementById('letter-content-input').value,
-          image: imageUrl
-        };
-
-        const indexVal = letters.findIndex(item => item.id === id);
-        if (indexVal >= 0) letters[indexVal] = newLetter;
-        else letters.unshift(newLetter);
-
-        saveLocal('leyla_letters', letters);
-        saveCloudDoc('letters', id, newLetter);
-        renderLetters();
-        document.getElementById('modal-letter').classList.add('hidden');
-      });
-
-      document.getElementById('btn-export-data').addEventListener('click', () => {
-        const dump = {
-          letters,
-          entries,
-          milestones,
-          exportedAt: new Date().toISOString()
-        };
-        const blob = new Blob([JSON.stringify(dump, null, 2)], { type: 'application/json' });
-        const a = document.createElement('a');
-        a.href = URL.createObjectURL(blob);
-        a.download = `leyla-sofia-journal-backup.json`;
-        a.click();
-      });
-
-    });
-  </script>
-</body>
-</html>
+          badgeColor = "bg-
