@@ -254,6 +254,7 @@
     </div>
   </footer>
 
+  <!-- Modal: Add/Edit Story Entry -->
   <div id="modal-entry" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
     <div class="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 border-2 border-amber-300 shadow-2xl relative max-h-[90vh] overflow-y-auto custom-scrollbar">
       <button id="btn-close-entry-modal" class="absolute top-4 right-4 text-amber-400 hover:text-amber-800 text-xl">
@@ -265,10 +266,9 @@
       <form id="form-entry" class="space-y-4">
         <input type="hidden" id="entry-id">
         
-        <!-- EXPLICIT AUTHOR FIELD -->
         <div>
           <label class="block text-xs font-bold uppercase text-amber-800 mb-1">Posted By / Your Name</label>
-          <input type="text" id="entry-author-input" placeholder="e.g. Abu Titi, Grandma, Mom (Maria), Uncle Carlos" required class="w-full px-4 py-2 border border-amber-200 rounded-xl focus:ring-2 focus:ring-amber-500 outline-none text-sm font-semibold text-amber-900">
+          <input type="text" id="entry-author-input" placeholder="e.g. Abu Titi, Grandma, Mom (Maria)" required class="w-full px-4 py-2 border border-amber-200 rounded-xl focus:ring-2 focus:ring-amber-500 outline-none text-sm font-semibold text-amber-900">
           <p class="text-[11px] text-amber-600 mt-1">This name will be saved on your device for future posts!</p>
         </div>
 
@@ -311,6 +311,7 @@
     </div>
   </div>
 
+  <!-- Modal: Write Special Letter -->
   <div id="modal-letter" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
     <div class="bg-amber-50 rounded-3xl max-w-lg w-full p-6 sm:p-8 border-2 border-terracotta-300 shadow-2xl relative max-h-[90vh] overflow-y-auto custom-scrollbar">
       <button id="btn-close-letter-modal" class="absolute top-4 right-4 text-amber-400 hover:text-amber-800 text-xl">
@@ -326,15 +327,14 @@
       <form id="form-letter" class="space-y-4">
         <input type="hidden" id="letter-id">
         
-        <!-- EXPLICIT LETTER SENDER FIELD -->
         <div>
           <label class="block text-xs font-bold uppercase text-amber-800 mb-1">Letter From (Author)</label>
-          <input type="text" id="letter-author-input" placeholder="e.g. Abu Titi, Grandma, Dad, Aunt Sofia" required class="w-full px-4 py-2 border border-amber-200 rounded-xl focus:ring-2 focus:ring-terracotta-500 outline-none text-sm font-semibold text-amber-900 bg-white">
+          <input type="text" id="letter-author-input" placeholder="e.g. Abu Titi, Grandma, Dad" required class="w-full px-4 py-2 border border-amber-200 rounded-xl focus:ring-2 focus:ring-terracotta-500 outline-none text-sm font-semibold text-amber-900 bg-white">
         </div>
 
         <div>
           <label class="block text-xs font-bold uppercase text-amber-800 mb-1">Letter Title / Subject</label>
-          <input type="text" id="letter-title-input" placeholder="e.g. For My Dearest Granddaughter on Your Birth" required class="w-full px-4 py-2 border border-amber-200 rounded-xl focus:ring-2 focus:ring-terracotta-500 outline-none text-sm bg-white">
+          <input type="text" id="letter-title-input" placeholder="e.g. For My Dearest Granddaughter" required class="w-full px-4 py-2 border border-amber-200 rounded-xl focus:ring-2 focus:ring-terracotta-500 outline-none text-sm bg-white">
         </div>
 
         <div>
@@ -355,6 +355,43 @@
     </div>
   </div>
 
+  <!-- Modal: Edit Milestone Photo -->
+  <div id="modal-milestone" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 border-2 border-amber-300 shadow-2xl relative">
+      <button id="btn-close-milestone-modal" class="absolute top-4 right-4 text-amber-400 hover:text-amber-800 text-xl">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <h3 class="font-serif text-xl font-bold text-amber-900 mb-2">Milestone Photo & Details</h3>
+      <p id="milestone-modal-text" class="text-xs text-amber-700 mb-4 font-semibold"></p>
+
+      <form id="form-milestone" class="space-y-4">
+        <input type="hidden" id="milestone-modal-id">
+        <div>
+          <label class="block text-xs font-bold uppercase text-amber-800 mb-1">Milestone Photo URL (Optional)</label>
+          <input type="url" id="milestone-image-input" placeholder="https://..." class="w-full px-4 py-2 border border-amber-200 rounded-xl focus:ring-2 focus:ring-amber-500 outline-none text-sm">
+        </div>
+        <div class="flex justify-end gap-3 pt-2">
+          <button type="button" id="btn-cancel-milestone" class="px-4 py-2 text-sm text-amber-700 hover:bg-amber-100 rounded-xl">Cancel</button>
+          <button type="submit" class="px-5 py-2 text-sm bg-amber-600 hover:bg-amber-700 text-white rounded-xl font-medium shadow">Save Photo</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: View Milestone Photo Viewer -->
+  <div id="modal-view-photo" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-lg w-full p-5 border border-amber-300 shadow-2xl relative">
+      <button onclick="document.getElementById('modal-view-photo').classList.add('hidden')" class="absolute top-3 right-4 text-amber-400 hover:text-amber-800 text-xl z-10">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <h4 id="view-photo-title" class="font-serif text-lg font-bold text-amber-950 mb-3">Milestone Photo</h4>
+      <div class="rounded-2xl overflow-hidden max-h-96 bg-amber-50 border border-amber-200">
+        <img id="view-photo-img" src="" alt="Milestone Photo" class="w-full h-full object-contain">
+      </div>
+    </div>
+  </div>
+
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
     import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
@@ -362,7 +399,6 @@
 
     const appId = typeof __app_id !== 'undefined' ? __app_id : 'leyla-sofia-memory-journal';
     
-    // Seed data including both Abu Titi & Grandma letters with author attribution
     const defaultLetters = [
       {
         id: "letter-1",
@@ -387,7 +423,7 @@
         author: "Mom (Maria)",
         category: "Daily Note",
         date: "2026-10-10",
-        message: "We are preparing your nursery in warm honey and terracotta tones. Everyone in the family is so excited to welcome you, especially Abu Titi and Grandma!",
+        message: "We are preparing your nursery in warm honey and terracotta tones. Everyone in the family is so excited to welcome you, especially Abu Titi and Grandma! It is amazing to watch all the preparations coming together as we get closer to meeting our little angel.",
         image: "https://images.unsplash.com/photo-1519689680058-324335c77eba?auto=format&fit=crop&w=800&q=80"
       },
       {
@@ -402,15 +438,17 @@
     ];
 
     const defaultMilestones = [
-      { id: "m1", text: "First Ultrasound Photo", done: true, updatedBy: "Mom" },
-      { id: "m2", text: "Nursery Room Completed", done: false, updatedBy: "" },
-      { id: "m3", text: "Welcome to the World (Mar 2027)", done: false, updatedBy: "" },
-      { id: "m4", text: "First Smile", done: false, updatedBy: "" },
-      { id: "m5", text: "First Visit with Abu Titi & Grandma", done: false, updatedBy: "" },
-      { id: "m6", text: "First Steps", done: false, updatedBy: "" }
+      { id: "m2", text: "Announcement", done: false, updatedBy: "", image: "" },
+      { id: "m1", text: "First Ultrasound Photo", done: true, updatedBy: "Mom", image: "https://images.unsplash.com/photo-1519689680058-324335c77eba?auto=format&fit=crop&w=600&q=80" },
+      { id: "m2", text: "Madrina Selected", done: false, updatedBy: "", image: "" },
+      { id: "m2", text: "Gender Reveal", done: false, updatedBy: "", image: "" },
+      { id: "m2", text: "Nursery Room Completed", done: false, updatedBy: "", image: "" },
+      { id: "m3", text: "Welcome to the World (Mar 2027)", done: false, updatedBy: "", image: "" },
+      { id: "m5", text: "First Visit with Abu Titi & Grandma", done: false, updatedBy: "", image: "" },
+      { id: "m4", text: "First Smile", done: false, updatedBy: "", image: "" },
+      { id: "m6", text: "First Steps", done: false, updatedBy: "", image: "" }
     ];
 
-    // State
     let letters = JSON.parse(localStorage.getItem('leyla_letters')) || defaultLetters;
     let entries = JSON.parse(localStorage.getItem('leyla_entries')) || defaultEntries;
     let milestones = JSON.parse(localStorage.getItem('leyla_milestones')) || defaultMilestones;
@@ -420,16 +458,10 @@
     let auth = null;
     let user = null;
 
-    /**
-     * Formats and dimensions image URLs for robust previews.
-     * Automatically applies optimization/sizing params for Unsplash or general query strings.
-     */
     function formatImageUrl(url, options = { width: 800, height: 600, fit: 'cover', quality: 85 }) {
       if (!url) return '';
       try {
         const parsedUrl = new URL(url);
-        
-        // Handle Unsplash provider parameter standardization
         if (parsedUrl.hostname.includes('unsplash.com')) {
           if (!parsedUrl.searchParams.has('w')) parsedUrl.searchParams.set('w', options.width);
           if (!parsedUrl.searchParams.has('h')) parsedUrl.searchParams.set('h', options.height);
@@ -437,14 +469,11 @@
           if (!parsedUrl.searchParams.has('q')) parsedUrl.searchParams.set('q', options.quality);
           if (!parsedUrl.searchParams.has('auto')) parsedUrl.searchParams.set('auto', 'format');
         } else {
-          // Generic query param adjustments for other hosting services
           if (options.width && !parsedUrl.searchParams.has('w')) parsedUrl.searchParams.set('w', options.width);
           if (options.height && !parsedUrl.searchParams.has('h')) parsedUrl.searchParams.set('h', options.height);
         }
-
         return parsedUrl.toString();
       } catch (e) {
-        // Fallback for relative or malformed URLs
         return url;
       }
     }
@@ -619,16 +648,30 @@
       milestones.forEach(m => {
         if (m.done) completedCount++;
 
-        const box = document.createElement('label');
-        box.className = `flex flex-col p-3 rounded-xl border cursor-pointer transition ${
+        const box = document.createElement('div');
+        box.className = `flex flex-col justify-between p-3 rounded-xl border transition ${
           m.done ? 'bg-amber-100/70 border-amber-300 text-amber-950' : 'bg-white border-amber-200 text-amber-800 hover:bg-amber-50'
         }`;
+        
         box.innerHTML = `
-          <div class="flex items-center gap-3">
-            <input type="checkbox" ${m.done ? 'checked' : ''} onchange="toggleMilestone('${m.id}')" class="w-4 h-4 text-amber-600 rounded border-amber-300 focus:ring-amber-500">
-            <span class="text-xs font-medium ${m.done ? 'line-through text-amber-700' : ''}">${m.text}</span>
+          <div class="flex items-center justify-between gap-2">
+            <label class="flex items-center gap-2.5 cursor-pointer flex-grow">
+              <input type="checkbox" ${m.done ? 'checked' : ''} onchange="toggleMilestone('${m.id}')" class="w-4 h-4 text-amber-600 rounded border-amber-300 focus:ring-amber-500">
+              <span class="text-xs font-medium ${m.done ? 'line-through text-amber-700' : ''}">${m.text}</span>
+            </label>
+            
+            <div class="flex items-center gap-1.5">
+              ${m.image ? `
+                <button onclick="viewMilestonePhoto('${m.image}', '${m.text.replace(/'/g, "\\'")}')" class="text-amber-700 hover:text-amber-900 bg-amber-200/80 p-1.5 rounded-lg transition" title="View Milestone Photo">
+                  <i class="fa-solid fa-camera text-xs"></i>
+                </button>
+              ` : ''}
+              <button onclick="openMilestoneModal('${m.id}')" class="text-amber-600 hover:text-amber-800 p-1.5 rounded-lg hover:bg-amber-200/50 transition" title="Add/Edit Photo">
+                <i class="fa-solid fa-image text-xs"></i>
+              </button>
+            </div>
           </div>
-          ${m.updatedBy ? `<span class="text-[10px] text-amber-600 pl-7 mt-0.5">Updated by: ${m.updatedBy}</span>` : ''}
+          ${m.updatedBy ? `<span class="text-[10px] text-amber-600 pl-6 mt-1">Updated by: ${m.updatedBy}</span>` : ''}
         `;
         container.appendChild(box);
       });
@@ -672,7 +715,6 @@
           badgeColor = "bg-amber-200 text-amber-950 border-amber-300 font-bold";
         }
 
-        // Apply formatted image URL to ensure proper dimensioning and clean previews
         const optimizedImageSrc = formatImageUrl(item.image, { width: 800, height: 500, fit: 'cover' });
 
         card.innerHTML = `
@@ -696,7 +738,14 @@
             </div>
           ` : ''}
 
-          <p class="text-amber-900/90 text-sm sm:text-base leading-relaxed whitespace-pre-line">${item.message}</p>
+          <div class="relative">
+            <div id="msg-container-${item.id}" class="text-amber-900/90 text-sm sm:text-base leading-relaxed whitespace-pre-line overflow-hidden transition-all duration-300" style="max-height: 4.5rem;">
+              ${item.message}
+            </div>
+            <button id="btn-toggle-${item.id}" onclick="toggleStoryText('${item.id}')" class="hidden text-xs font-bold text-amber-700 hover:text-amber-900 mt-1.5 focus:outline-none">
+              More...
+            </button>
+          </div>
 
           <div class="flex justify-end gap-3 pt-3 border-t border-amber-100 text-xs">
             <button onclick="editEntry('${item.id}')" class="text-amber-700 hover:text-amber-900 font-medium">
@@ -709,10 +758,48 @@
         `;
 
         container.appendChild(card);
+
+        // Check if text is long enough to warrant a "More..." toggle
+        setTimeout(() => {
+          const el = document.getElementById(`msg-container-${item.id}`);
+          const btn = document.getElementById(`btn-toggle-${item.id}`);
+          if (el && btn && el.scrollHeight > el.clientHeight + 10) {
+            btn.classList.remove('hidden');
+          }
+        }, 50);
       });
     }
 
     // Handlers
+    window.toggleStoryText = function(id) {
+      const el = document.getElementById(`msg-container-${id}`);
+      const btn = document.getElementById(`btn-toggle-${id}`);
+      if (!el || !btn) return;
+
+      if (el.style.maxHeight !== 'none') {
+        el.style.maxHeight = 'none';
+        btn.textContent = 'Less...';
+      } else {
+        el.style.maxHeight = '4.5rem';
+        btn.textContent = 'More...';
+      }
+    };
+
+    window.openMilestoneModal = function(id) {
+      const item = milestones.find(m => m.id === id);
+      if (!item) return;
+      document.getElementById('milestone-modal-id').value = item.id;
+      document.getElementById('milestone-modal-text').textContent = item.text;
+      document.getElementById('milestone-image-input').value = item.image || '';
+      document.getElementById('modal-milestone').classList.remove('hidden');
+    };
+
+    window.viewMilestonePhoto = function(url, title) {
+      document.getElementById('view-photo-title').textContent = title;
+      document.getElementById('view-photo-img').src = formatImageUrl(url, { width: 900, height: 700, fit: 'inside' });
+      document.getElementById('modal-view-photo').classList.remove('hidden');
+    };
+
     window.toggleMilestone = function(id) {
       const savedUser = localStorage.getItem('leyla_saved_author') || "Family";
       milestones = milestones.map(m => m.id === id ? { ...m, done: !m.done, updatedBy: m.done ? "" : savedUser } : m);
@@ -771,7 +858,6 @@
       renderFeed();
       initFirebase();
 
-      // Tab Switching for Letters
       document.querySelectorAll('.letter-tab').forEach(tabBtn => {
         tabBtn.addEventListener('click', (e) => {
           document.querySelectorAll('.letter-tab').forEach(b => {
@@ -786,14 +872,11 @@
         });
       });
 
-      // Filter/Search Listeners
       document.getElementById('search-input').addEventListener('input', renderFeed);
       document.getElementById('category-filter').addEventListener('change', renderFeed);
 
-      // Remembered Author Name from browser local storage
       const savedAuthor = localStorage.getItem('leyla_saved_author') || '';
 
-      // Open Modal Handlers
       document.getElementById('btn-open-entry-modal').addEventListener('click', () => {
         document.getElementById('form-entry').reset();
         document.getElementById('entry-id').value = '';
@@ -812,12 +895,29 @@
         document.getElementById('modal-letter').classList.remove('hidden');
       });
 
-      // Modal Closers
       document.getElementById('btn-close-entry-modal').addEventListener('click', () => document.getElementById('modal-entry').classList.add('hidden'));
       document.getElementById('btn-cancel-entry').addEventListener('click', () => document.getElementById('modal-entry').classList.add('hidden'));
 
       document.getElementById('btn-close-letter-modal').addEventListener('click', () => document.getElementById('modal-letter').classList.add('hidden'));
       document.getElementById('btn-cancel-letter').addEventListener('click', () => document.getElementById('modal-letter').classList.add('hidden'));
+
+      document.getElementById('btn-close-milestone-modal').addEventListener('click', () => document.getElementById('modal-milestone').classList.add('hidden'));
+      document.getElementById('btn-cancel-milestone').addEventListener('click', () => document.getElementById('modal-milestone').classList.add('hidden'));
+
+      // Form Submit: Milestone Photo Update
+      document.getElementById('form-milestone').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const id = document.getElementById('milestone-modal-id').value;
+        const imageUrl = document.getElementById('milestone-image-input').value.trim();
+
+        milestones = milestones.map(m => m.id === id ? { ...m, image: imageUrl } : m);
+        saveLocal('leyla_milestones', milestones);
+        const updated = milestones.find(m => m.id === id);
+        if (updated) saveCloudDoc('milestones', id, updated);
+
+        renderMilestones();
+        document.getElementById('modal-milestone').classList.add('hidden');
+      });
 
       // Form Submit: Story Entry
       document.getElementById('form-entry').addEventListener('submit', (e) => {
