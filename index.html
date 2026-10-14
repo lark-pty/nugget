@@ -81,6 +81,14 @@
       background: #d97706;
       border-radius: 9999px;
     }
+
+    /* Enforce story truncation behavior */
+    .story-collapsed {
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
   </style>
 </head>
 <body class="font-sans text-amber-950 min-h-screen flex flex-col selection:bg-amber-200">
@@ -269,7 +277,6 @@
         <div>
           <label class="block text-xs font-bold uppercase text-amber-800 mb-1">Posted By / Your Name</label>
           <input type="text" id="entry-author-input" placeholder="e.g. Abu Titi, Grandma, Mom (Maria)" required class="w-full px-4 py-2 border border-amber-200 rounded-xl focus:ring-2 focus:ring-amber-500 outline-none text-sm font-semibold text-amber-900">
-          <p class="text-[11px] text-amber-600 mt-1">This name will be saved on your device for future posts!</p>
         </div>
 
         <div>
@@ -296,7 +303,6 @@
         <div>
           <label class="block text-xs font-bold uppercase text-amber-800 mb-1">Photo Image Link (Optional)</label>
           <input type="url" id="entry-image-input" placeholder="https://..." class="w-full px-4 py-2 border border-amber-200 rounded-xl focus:ring-2 focus:ring-amber-500 outline-none text-sm">
-          <p class="text-[11px] text-amber-600 mt-1">Supports direct image links or Unsplash URLs with auto-sizing parameters.</p>
         </div>
 
         <div>
@@ -330,7 +336,7 @@
         
         <div>
           <label class="block text-xs font-bold uppercase text-amber-800 mb-1">Letter From (Author)</label>
-          <input type="text" id="letter-author-input" placeholder="e.g. Abu Titi, Grandma, Dad" required class="w-full px-4 py-2 border border-amber-200 rounded-xl focus:ring-2 focus:ring-terracotta-500 outline-none text-sm font-semibold text-amber-900 bg-white">
+          <input type="text" id="letter-author-input" placeholder="e.g. Abu Titi, Grandma" required class="w-full px-4 py-2 border border-amber-200 rounded-xl focus:ring-2 focus:ring-terracotta-500 outline-none text-sm font-semibold text-amber-900 bg-white">
         </div>
 
         <div>
@@ -740,7 +746,7 @@
           ` : ''}
 
           <div class="relative">
-            <div id="msg-container-${item.id}" class="text-amber-900/90 text-sm sm:text-base leading-relaxed whitespace-pre-line overflow-hidden transition-all duration-300" style="max-height: 4.5rem;">
+            <div id="msg-container-${item.id}" class="text-amber-900/90 text-sm sm:text-base leading-relaxed whitespace-pre-line story-collapsed">
               ${item.message}
             </div>
             <button id="btn-toggle-${item.id}" onclick="toggleStoryText('${item.id}')" class="hidden text-xs font-bold text-amber-700 hover:text-amber-900 mt-1.5 focus:outline-none">
@@ -763,7 +769,7 @@
         setTimeout(() => {
           const el = document.getElementById(`msg-container-${item.id}`);
           const btn = document.getElementById(`btn-toggle-${item.id}`);
-          if (el && btn && el.scrollHeight > el.clientHeight + 10) {
+          if (el && btn && el.scrollHeight > el.clientHeight + 4) {
             btn.classList.remove('hidden');
           }
         }, 50);
@@ -776,12 +782,12 @@
       const btn = document.getElementById(`btn-toggle-${id}`);
       if (!el || !btn) return;
 
-      if (el.style.maxHeight !== 'none') {
-        el.style.maxHeight = '4.5rem';
-        btn.textContent = 'More...';
-      } else {
-        el.style.maxHeight = 'none';
+      if (el.classList.contains('story-collapsed')) {
+        el.classList.remove('story-collapsed');
         btn.textContent = 'Less...';
+      } else {
+        el.classList.add('story-collapsed');
+        btn.textContent = 'More...';
       }
     };
 
