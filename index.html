@@ -103,14 +103,14 @@
       </p>
 
       <p class="max-w-2xl mx-auto text-amber-800/90 text-sm sm:text-base leading-relaxed mb-8">
-        A sun-lit family sanctuary of stories, prayers, letters from Grandma, aunties & Abu Titi; as well as milestone memories for our sweet Leyla Sofía.
+        A sun-lit family sanctuary of stories, prayers, letters from Abu Titi & Grandma, and milestone memories for our sweet Leyla Sofía.
       </p>
 
       <!-- Countdown Timer Box -->
       <div class="inline-block bg-white/90 backdrop-blur-md border-2 border-amber-300/80 rounded-2xl p-4 sm:p-6 shadow-xl max-w-md w-full">
         <div class="text-xs font-bold text-amber-700 uppercase tracking-wider mb-2 flex items-center justify-center gap-2">
           <i class="fa-solid fa-hourglass-half text-amber-500"></i>
-          <span>Expected Arrival: March 1st, 2027</span>
+          <span>Expected Arrival: February 2027</span>
         </div>
         <div id="countdown" class="grid grid-cols-4 gap-2 text-center">
           <div class="bg-amber-50 rounded-xl p-2 border border-amber-200">
@@ -250,7 +250,7 @@
   <footer class="mt-16 bg-amber-900 text-amber-100 py-10 border-t-4 border-amber-600">
     <div class="max-w-5xl mx-auto px-4 text-center space-y-4">
       <p class="font-serif text-2xl italic font-semibold">"Named with love after Abu Titi, cherished by Grandma and all our family."</p>
-      <p class="text-xs text-amber-300/80">Created with love for Leyla Sofía &bull; Digital Memory Journal &bull; Mar 2027</p>
+      <p class="text-xs text-amber-300/80">Created with love for Leyla Sofía &bull; Digital Memory Journal &bull; Feb 2027</p>
     </div>
   </footer>
 
@@ -369,13 +369,13 @@
         title: "To My Precious Leyla Sofía",
         author: "Abu Titi",
         date: "2026-10-15",
-        content: "My dear grandbaby, as we await your arrival in March 2027, my heart overflows with warmth. To carry my name is a gift, but to see you grow will be my greatest blessing."
+        content: "My dear grandbaby, as we await your arrival in February 2027, my heart overflows with warmth. To carry my name is a gift, but to see you grow will be my greatest blessing."
       },
       {
         id: "letter-2",
         title: "A Grandma's Special Blessing",
         author: "Grandma",
-        date: "2026-10-14",
+        date: "2026-11-01",
         content: "Every single day, Grandma prays for your safe arrival, your good health, and your happiness. Always remember that you are surrounded by a family that loves you beyond measure."
       }
     ];
@@ -383,8 +383,8 @@
     const defaultEntries = [
       {
         id: "entry-1",
-        title: "Counting down to March 2027!",
-        author: "Mom (Stephanie)",
+        title: "Counting down to February 2027!",
+        author: "Mom (Maria)",
         category: "Daily Note",
         date: "2026-10-10",
         message: "We are preparing your nursery in warm honey and terracotta tones. Everyone in the family is so excited to welcome you, especially Abu Titi and Grandma!",
@@ -403,9 +403,8 @@
 
     const defaultMilestones = [
       { id: "m1", text: "First Ultrasound Photo", done: true, updatedBy: "Mom" },
-      { id: "m1", text: "Gender Reveal", done: true, updatedBy: "Abu Titi" },
       { id: "m2", text: "Nursery Room Completed", done: false, updatedBy: "" },
-      { id: "m3", text: "Welcome to the World (Mar 2027)", done: false, updatedBy: "" },
+      { id: "m3", text: "Welcome to the World (Feb 2027)", done: false, updatedBy: "" },
       { id: "m4", text: "First Smile", done: false, updatedBy: "" },
       { id: "m5", text: "First Visit with Abu Titi & Grandma", done: false, updatedBy: "" },
       { id: "m6", text: "First Steps", done: false, updatedBy: "" }
@@ -420,6 +419,35 @@
     let db = null;
     let auth = null;
     let user = null;
+
+    /**
+     * Formats and dimensions image URLs for robust previews.
+     * Automatically applies optimization/sizing params for Unsplash or general query strings.
+     */
+    function formatImageUrl(url, options = { width: 800, height: 600, fit: 'cover', quality: 85 }) {
+      if (!url) return '';
+      try {
+        const parsedUrl = new URL(url);
+        
+        // Handle Unsplash provider parameter standardization
+        if (parsedUrl.hostname.includes('unsplash.com')) {
+          if (!parsedUrl.searchParams.has('w')) parsedUrl.searchParams.set('w', options.width);
+          if (!parsedUrl.searchParams.has('h')) parsedUrl.searchParams.set('h', options.height);
+          if (!parsedUrl.searchParams.has('fit')) parsedUrl.searchParams.set('fit', options.fit);
+          if (!parsedUrl.searchParams.has('q')) parsedUrl.searchParams.set('q', options.quality);
+          if (!parsedUrl.searchParams.has('auto')) parsedUrl.searchParams.set('auto', 'format');
+        } else {
+          // Generic query param adjustments for other hosting services
+          if (options.width && !parsedUrl.searchParams.has('w')) parsedUrl.searchParams.set('w', options.width);
+          if (options.height && !parsedUrl.searchParams.has('h')) parsedUrl.searchParams.set('h', options.height);
+        }
+
+        return parsedUrl.toString();
+      } catch (e) {
+        // Fallback for relative or malformed URLs
+        return url;
+      }
+    }
 
     async function initFirebase() {
       try {
@@ -502,7 +530,7 @@
     }
 
     function startCountdown() {
-      const targetDate = new Date("March 1, 2027 00:00:00").getTime();
+      const targetDate = new Date("February 1, 2027 00:00:00").getTime();
 
       function update() {
         const now = new Date().getTime();
@@ -644,6 +672,9 @@
           badgeColor = "bg-amber-200 text-amber-950 border-amber-300 font-bold";
         }
 
+        // Apply formatted image URL to ensure proper dimensioning and clean previews
+        const optimizedImageSrc = formatImageUrl(item.image, { width: 800, height: 500, fit: 'cover' });
+
         card.innerHTML = `
           <div class="flex flex-wrap items-center justify-between gap-2 border-b border-amber-100 pb-3">
             <div class="flex items-center gap-2">
@@ -660,8 +691,8 @@
           <h3 class="font-serif text-2xl font-bold text-amber-950">${item.title}</h3>
 
           ${item.image ? `
-            <div class="rounded-2xl overflow-hidden max-h-80 border border-amber-100">
-              <img src="${item.image}" alt="${item.title}" class="w-full h-full object-cover" onerror="this.style.display='none'">
+            <div class="rounded-2xl overflow-hidden h-72 sm:h-80 border border-amber-100 bg-amber-50">
+              <img src="${optimizedImageSrc}" alt="${item.title}" class="w-full h-full object-cover object-center" onerror="this.style.display='none'">
             </div>
           ` : ''}
 
@@ -830,8 +861,10 @@
           content: document.getElementById('letter-content-input').value
         };
 
-        const idx = letters.findIndex(item => item.id === id);
-        if (idx >= 0) letters[idx] = newLetter;
+        const idx = letters.letters ? letters.findIndex(item => item.id === id) : -1;
+        // fallback check for letters array index
+        const indexVal = letters.findIndex(item => item.id === id);
+        if (indexVal >= 0) letters[indexVal] = newLetter;
         else letters.unshift(newLetter);
 
         saveLocal('leyla_letters', letters);
