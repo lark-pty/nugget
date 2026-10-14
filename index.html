@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Leyla Sofía's Digital Memory Book</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Playfair+Display:ital,wght@0,500;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            amber: {
+              50: '#fffbebe6',
+              100: '#fef3c7',
+              200: '#fde68a',
+              300: '#fcd34d',
+              400: '#fbbf24',
+              500: '#f59e0b',
+              600: '#d97706',
+              700: '#b45309',
+              800: '#92400e',
+              900: '#78350f',
+            },
+            terracotta: {
+              50: '#fff7f5',
+              100: '#ffeee8',
+              300: '#f2a68d',
+              500: '#db6b42',
+              600: '#c25128',
+              700: '#9e3b18',
+            },
+            cream: {
+              50: '#fffdfa',
+              100: '#fcf8f2',
+              200: '#f7eee1',
+              300: '#efe0cd',
+            }
+          },
+          fontFamily: {
+            serif: ['"Playfair Display"', 'serif'],
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            handwriting: ['"Caveat"', 'cursive'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #faf6f0;
+      background-image: radial-gradient(#e5d5c0 0.75px, transparent 0.75px), radial-gradient(#e5d5c0 0.75px, #faf6f0 0.75px);
+      background-size: 30px 30px;
+      background-position: 0 0, 15px 15px;
+    }
+    
+    .parchment {
+      background: linear-gradient(135deg, #fffdf8 0%, #f7eee1 100%);
+      box-shadow: 0 10px 25px -5px rgba(180, 83, 9, 0.08), 0 8px 10px -6px rgba(180, 83, 9, 0.04);
+    }
+
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #f7eee1;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #d97706;
+      border-radius: 9999px;
+    }
+  </style>
+</head>
+<body class="font-sans text-amber-950 min-h-screen flex flex-col selection:bg-amber-200">
+
+  <header class="relative bg-gradient-to-b from-amber-100/90 via-amber-50/80 to-transparent border-b border-amber-200/60 pt-8 pb-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-5xl mx-auto text-center">
+      
+      <!-- Top Badge -->
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-200/60 border border-amber-300 text-amber-800 text-xs sm:text-sm font-semibold tracking-wide uppercase mb-4 shadow-sm">
+        <i class="fa-solid fa-sun text-amber-600 animate-spin-slow"></i>
+        <span>Family Memory Journal</span>
+        <i class="fa-solid fa-heart text-terracotta-500"></i>
+      </div>
+
+      <h1 class="font-serif text-4xl sm:text-6xl text-amber-900 font-bold tracking-tight mb-3">
+        Leyla Sofía's Life Journal
+      </h1>
+      <p class="font-serif italic text-xl sm:text-2xl text-terracotta-600 font-medium mb-4">
+        "Named after Abu Titi..."
+      </p>
+
+      <p class="max-w-2xl mx-auto text-amber-800/90 text-sm sm:text-base leading-relaxed mb-8">
+        A sun-lit family sanctuary of stories, prayers, letters from Abu Titi & Grandma, and milestone memories for our sweet Leyla Sofía.
+      </p>
+
+      <!-- Countdown Timer Box -->
+      <div class="inline-block bg-white/90 backdrop-blur-md border-2 border-amber-300/80 rounded-2xl p-4 sm:p-6 shadow-xl max-w-md w-full">
+        <div class="text-xs font-bold text-amber-700 uppercase tracking-wider mb-2 flex items-center justify-center gap-2">
+          <i class="fa-solid fa-hourglass-half text-amber-500"></i>
+          <span>Expected Arrival: February 2027</span>
+        </div>
+        <div id="countdown" class="grid grid-cols-4 gap-2 text-center">
+          <div class="bg-amber-50 rounded-xl p-2 border border-amber-200">
+            <span id="cd-days" class="font-serif text-2xl sm:text-3xl font-bold text-amber-900">--</span>
+            <p class="text-[10px] uppercase font-bold text-amber-600">Days</p>
+          </div>
+          <div class="bg-amber-50 rounded-xl p-2 border border-amber-200">
+            <span id="cd-hours" class="font-serif text-2xl sm:text-3xl font-bold text-amber-900">--</span>
+            <p class="text-[10px] uppercase font-bold text-amber-600">Hours</p>
+          </div>
+          <div class="bg-amber-50 rounded-xl p-2 border border-amber-200">
+            <span id="cd-mins" class="font-serif text-2xl sm:text-3xl font-bold text-amber-900">--</span>
+            <p class="text-[10px] uppercase font-bold text-amber-600">Mins</p>
+          </div>
+          <div class="bg-amber-50 rounded-xl p-2 border border-amber-200">
+            <span id="cd-secs" class="font-serif text-2xl sm:text-3xl font-bold text-amber-900">--</span>
+            <p class="text-[10px] uppercase font-bold text-amber-600">Secs</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </header>
+
+  <main class="flex-grow max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
+
+    <!-- Action Bar & Controls -->
+    <div class="flex flex-col sm:flex-row items-center justify-between gap-4 bg-amber-100/60 p-4 rounded-2xl border border-amber-200/70 shadow-sm">
+      <div class="flex flex-wrap gap-2 w-full sm:w-auto">
+        <button id="btn-open-entry-modal" class="flex-1 sm:flex-none px-5 py-2.5 bg-amber-600 hover:bg-amber-700 text-white font-medium rounded-xl transition duration-200 shadow-md flex items-center justify-center gap-2">
+          <i class="fa-solid fa-pen-nib"></i>
+          <span>Add Story / Memory</span>
+        </button>
+        <button id="btn-open-letter-modal" class="flex-1 sm:flex-none px-5 py-2.5 bg-terracotta-600 hover:bg-terracotta-700 text-white font-medium rounded-xl transition duration-200 shadow-md flex items-center justify-center gap-2">
+          <i class="fa-solid fa-scroll"></i>
+          <span>Write a Special Letter</span>
+        </button>
+      </div>
+
+      <!-- Sync Status & User Identity Indicator -->
+      <div class="flex flex-wrap items-center gap-3 text-xs text-amber-800 font-semibold bg-white px-3.5 py-2 rounded-xl border border-amber-200 shadow-inner w-full sm:w-auto justify-between sm:justify-end">
+        <span class="flex items-center gap-2">
+          <span class="relative flex h-2.5 w-2.5">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+          </span>
+          <span id="sync-status">Cloud Sync Ready</span>
+        </span>
+        <button id="btn-export-data" title="Export Journal Data" class="hover:text-amber-600 transition">
+          <i class="fa-solid fa-download"></i> Export
+        </button>
+      </div>
+    </div>
+
+    <section class="space-y-6">
+      <div class="border-b border-amber-200/80 pb-4 flex flex-col md:flex-row md:items-end justify-between gap-4">
+        <div>
+          <div class="flex items-center gap-2 text-terracotta-600 font-semibold text-xs tracking-widest uppercase">
+            <i class="fa-solid fa-envelope-open-text"></i>
+            <span>Letters & Blessings</span>
+          </div>
+          <h2 class="font-serif text-3xl font-bold text-amber-900">Special Corner</h2>
+        </div>
+
+        <!-- Tab Buttons for Abu Titi vs Grandma vs All Family Letters -->
+        <div class="flex p-1 bg-amber-200/50 rounded-2xl border border-amber-300/60 self-start md:self-auto">
+          <button id="tab-all-letters" class="letter-tab px-4 py-2 text-xs sm:text-sm font-bold rounded-xl transition bg-white text-amber-900 shadow-sm" data-tab="ALL">
+            All Letters
+          </button>
+          <button id="tab-abutiti-letters" class="letter-tab px-4 py-2 text-xs sm:text-sm font-bold rounded-xl transition text-amber-800 hover:text-amber-950" data-tab="Abu Titi">
+            <i class="fa-solid fa-heart text-terracotta-500 mr-1"></i> Abu Titi's
+          </button>
+          <button id="tab-grandma-letters" class="letter-tab px-4 py-2 text-xs sm:text-sm font-bold rounded-xl transition text-amber-800 hover:text-amber-950" data-tab="Grandma">
+            <i class="fa-solid fa-crown text-amber-600 mr-1"></i> Grandma's
+          </button>
+        </div>
+      </div>
+
+      <!-- Letters Grid Container -->
+      <div id="letters-container" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Rendered dynamically -->
+      </div>
+    </section>
+
+    <section class="bg-white/80 backdrop-blur border border-amber-200 rounded-3xl p-6 sm:p-8 shadow-sm">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+        <div>
+          <h2 class="font-serif text-2xl font-bold text-amber-900 flex items-center gap-2">
+            <i class="fa-solid fa-star text-amber-500"></i>
+            <span>Leyla Sofìa's Milestone Tracker</span>
+          </h2>
+          <p class="text-sm text-amber-800/80 mt-1">Check off milestone achievements as Leyla Sofía grows!</p>
+        </div>
+        
+        <div class="w-full md:w-64 bg-amber-100 rounded-full h-5 p-1 border border-amber-200 relative overflow-hidden flex items-center">
+          <div id="milestone-progress-bar" class="bg-gradient-to-r from-amber-500 to-terracotta-500 h-full rounded-full transition-all duration-500" style="width: 0%;"></div>
+          <span id="milestone-progress-text" class="absolute inset-0 flex items-center justify-center text-[10px] font-bold text-amber-950">0% Completed</span>
+        </div>
+      </div>
+
+      <div id="milestones-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+        <!-- Rendered dynamically -->
+      </div>
+    </section>
+
+    <section class="space-y-6">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-amber-200 pb-4">
+        <div>
+          <h2 class="font-serif text-3xl font-bold text-amber-900">Leyla Sofía's Family Story Feed</h2>
+          <p class="text-sm text-amber-800/80">Every family member's posts, photos, and updates with clear author names.</p>
+        </div>
+
+        <!-- Filter & Search Bar -->
+        <div class="flex flex-col sm:flex-row gap-3">
+          <div class="relative">
+            <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-amber-400 text-sm"></i>
+            <input type="text" id="search-input" placeholder="Search posts or author..." class="pl-9 pr-4 py-2 text-sm bg-white border border-amber-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 w-full sm:w-48">
+          </div>
+          <select id="category-filter" class="px-3 py-2 text-sm bg-white border border-amber-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 text-amber-900">
+            <option value="ALL">All Categories</option>
+            <option value="Milestone">Milestones</option>
+            <option value="Daily Note">Daily Notes</option>
+            <option value="Photos">Photos & Media</option>
+            <option value="Family">Family Messages</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Feed Container -->
+      <div id="feed-container" class="space-y-6">
+        <!-- Rendered dynamically -->
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="mt-16 bg-amber-900 text-amber-100 py-10 border-t-4 border-amber-600">
+    <div class="max-w-5xl mx-auto px-4 text-center space-y-4">
+      <p class="font-serif text-2xl italic font-semibold">"Named with love after Abu Titi, cherished by Grandma and all our family."</p>
+      <p class="text-xs text-amber-300/80">Created with love for Leyla Sofía &bull; Digital Memory Journal &bull; Feb 2027</p>
+    </div>
+  </footer>
+
+  <div id="modal-entry" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 border-2 border-amber-300 shadow-2xl relative max-h-[90vh] overflow-y-auto custom-scrollbar">
+      <button id="btn-close-entry-modal" class="absolute top-4 right-4 text-amber-400 hover:text-amber-800 text-xl">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <h3 id="modal-entry-title" class="font-serif text-2xl font-bold text-amber-900 mb-4">Add Family Story Memory</h3>
+
+      <form id="form-entry" class="space-y-4">
+        <input type="hidden" id="entry-id">
+        
+        <!-- EXPLICIT AUTHOR FIELD -->
+        <div>
+          <label class="block text-xs font-bold uppercase text-amber-800 mb-1">Posted By / Your Name</label>
+          <input type="text" id="entry-author-input" placeholder="e.g. Abu Titi, Grandma, Mom (Maria), Uncle Carlos" required class="w-full px-4 py-2 border border-amber-200 rounded-xl focus:ring-2 focus:ring-amber-500 outline-none text-sm font-semibold text-amber-900">
+          <p class="text-[11px] text-amber-600 mt-1">This name will be saved on your device for future posts!</p>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold uppercase text-amber-800 mb-1">Title</label>
+          <input type="text" id="entry-title-input" required class="w-full px-4 py-2 border border-amber-200 rounded-xl focus:ring-2 focus:ring-amber-500 outline-none text-sm">
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold uppercase text-amber-800 mb-1">Category</label>
+            <select id="entry-category-input" class="w-full px-3 py-2 border border-amber-200 rounded-xl focus:ring-2 focus:ring-amber-500 outline-none text-sm">
+              <option value="Milestone">Milestone</option>
+              <option value="Daily Note">Daily Note</option>
+              <option value="Photos">Photos</option>
+              <option value="Family">Family Message</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-bold uppercase text-amber-800 mb-1">Date</label>
+            <input type="date" id="entry-date-input" required class="w-full px-4 py-2 border border-amber-200 rounded-xl focus:ring-2 focus:ring-amber-500 outline-none text-sm">
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold uppercase text-amber-800 mb-1">Photo Image Link (Optional)</label>
+          <input type="url" id="entry-image-input" placeholder="https://..." class="w-full px-4 py-2 border border-amber-200 rounded-xl focus:ring-2 focus:ring-amber-500 outline-none text-sm">
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold uppercase text-amber-800 mb-1">Memory / Message</label>
+          <textarea id="entry-message-input" rows="4" required class="w-full px-4 py-2 border border-amber-200 rounded-xl focus:ring-2 focus:ring-amber-500 outline-none text-sm"></textarea>
+        </div>
+
+        <div class="flex justify-end gap-3 pt-2">
+          <button type="button" id="btn-cancel-entry" class="px-4 py-2 text-sm text-amber-700 hover:bg-amber-100 rounded-xl">Cancel</button>
+          <button type="submit" class="px-5 py-2 text-sm bg-amber-600 hover:bg-amber-700 text-white rounded-xl font-medium shadow">Save Memory</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="modal-letter" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-amber-50 rounded-3xl max-w-lg w-full p-6 sm:p-8 border-2 border-terracotta-300 shadow-2xl relative max-h-[90vh] overflow-y-auto custom-scrollbar">
+      <button id="btn-close-letter-modal" class="absolute top-4 right-4 text-amber-400 hover:text-amber-800 text-xl">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div class="flex items-center gap-2 text-terracotta-600 font-bold text-xs uppercase mb-1">
+        <i class="fa-solid fa-envelope-open-text"></i>
+        <span>Parchment Scroll</span>
+      </div>
+      <h3 id="modal-letter-title" class="font-serif text-2xl font-bold text-amber-950 mb-4">Write a Special Letter</h3>
+
+      <form id="form-letter" class="space-y-4">
+        <input type="hidden" id="letter-id">
+        
+        <!-- EXPLICIT LETTER SENDER FIELD -->
+        <div>
+          <label class="block text-xs font-bold uppercase text-amber-800 mb-1">Letter From (Author)</label>
+          <input type="text" id="letter-author-input" placeholder="e.g. Abu Titi, Grandma, Dad, Aunt Sofia" required class="w-full px-4 py-2 border border-amber-200 rounded-xl focus:ring-2 focus:ring-terracotta-500 outline-none text-sm font-semibold text-amber-900 bg-white">
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold uppercase text-amber-800 mb-1">Letter Title / Subject</label>
+          <input type="text" id="letter-title-input" placeholder="e.g. For My Dearest Granddaughter on Your Birth" required class="w-full px-4 py-2 border border-amber-200 rounded-xl focus:ring-2 focus:ring-terracotta-500 outline-none text-sm bg-white">
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold uppercase text-amber-800 mb-1">Date Written</label>
+          <input type="date" id="letter-date-input" required class="w-full px-4 py-2 border border-amber-200 rounded-xl focus:ring-2 focus:ring-terracotta-500 outline-none text-sm bg-white">
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold uppercase text-amber-800 mb-1">Letter Content (Prayer, Wisdom, Memories)</label>
+          <textarea id="letter-content-input" rows="6" required placeholder="My sweet Leyla Sofía..." class="w-full px-4 py-3 border border-amber-200 rounded-xl focus:ring-2 focus:ring-terracotta-500 outline-none text-sm bg-white font-serif leading-relaxed"></textarea>
+        </div>
+
+        <div class="flex justify-end gap-3 pt-2">
+          <button type="button" id="btn-cancel-letter" class="px-4 py-2 text-sm text-amber-700 hover:bg-amber-100 rounded-xl">Cancel</button>
+          <button type="submit" class="px-5 py-2 text-sm bg-terracotta-600 hover:bg-terracotta-700 text-white rounded-xl font-medium shadow">Save Letter</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+    import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+    import { getFirestore, collection, onSnapshot, doc, setDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+    const appId = typeof __app_id !== 'undefined' ? __app_id : 'leyla-sofia-memory-journal';
+    
+    // Seed data including both Abu Titi & Grandma letters with author attribution
+    const defaultLetters = [
+      {
+        id: "letter-1",
+        title: "To My Precious Leyla Sofía",
+        author: "Abu Titi",
+        date: "2026-10-15",
+        content: "My dear grandbaby, as we await your arrival in February 2027, my heart overflows with warmth. To carry my name is a gift, but to see you grow will be my greatest blessing."
+      },
+      {
+        id: "letter-2",
+        title: "A Grandma's Special Blessing",
+        author: "Grandma",
+        date: "2026-11-01",
+        content: "Every single day, Grandma prays for your safe arrival, your good health, and your happiness. Always remember that you are surrounded by a family that loves you beyond measure."
+      }
+    ];
+
+    const defaultEntries = [
+      {
+        id: "entry-1",
+        title: "Counting down to February 2027!",
+        author: "Mom (Maria)",
+        category: "Daily Note",
+        date: "2026-10-10",
+        message: "We are preparing your nursery in warm honey and terracotta tones. Everyone in the family is so excited to welcome you, especially Abu Titi and Grandma!",
+        image: "https://images.unsplash.com/photo-1519689680058-324335c77eba?auto=format&fit=crop&w=800&q=80"
+      },
+      {
+        id: "entry-2",
+        title: "Named After Abu Titi",
+        author: "Abu Titi",
+        category: "Family",
+        date: "2026-09-28",
+        message: "Choosing your name 'Leyla Sofía' brought tears of happiness to my eyes. It is an honor to share this sacred bond with you.",
+        image: ""
+      }
+    ];
+
+    const defaultMilestones = [
+      { id: "m1", text: "First Ultrasound Photo", done: true, updatedBy: "Mom" },
+      { id: "m2", text: "Nursery Room Completed", done: false, updatedBy: "" },
+      { id: "m3", text: "Welcome to the World (Feb 2027)", done: false, updatedBy: "" },
+      { id: "m4", text: "First Smile", done: false, updatedBy: "" },
+      { id: "m5", text: "First Visit with Abu Titi & Grandma", done: false, updatedBy: "" },
+      { id: "m6", text: "First Steps", done: false, updatedBy: "" }
+    ];
+
+    // State
+    let letters = JSON.parse(localStorage.getItem('leyla_letters')) || defaultLetters;
+    let entries = JSON.parse(localStorage.getItem('leyla_entries')) || defaultEntries;
+    let milestones = JSON.parse(localStorage.getItem('leyla_milestones')) || defaultMilestones;
+    let activeLetterTab = "ALL";
+
+    let db = null;
+    let auth = null;
+    let user = null;
+
+    async function initFirebase() {
+      try {
+        if (typeof __firebase_config !== 'undefined' && __firebase_config) {
+          const firebaseConfig = JSON.parse(__firebase_config);
+          const app = initializeApp(firebaseConfig);
+          auth = getAuth(app);
+          db = getFirestore(app);
+
+          if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+            user = (await signInWithCustomToken(auth, __initial_auth_token)).user;
+          } else {
+            user = (await signInAnonymously(auth)).user;
+          }
+
+          if (user) {
+            document.getElementById('sync-status').textContent = "Cloud Synced";
+            setupRealtimeSync();
+          }
+        }
+      } catch (err) {
+        console.warn("Firestore fallback to local storage:", err);
+        document.getElementById('sync-status').textContent = "Local Storage Mode";
+      }
+    }
+
+    function setupRealtimeSync() {
+      if (!db || !user) return;
+
+      const lettersCol = collection(db, 'artifacts', appId, 'public', 'data', 'letters');
+      onSnapshot(lettersCol, (snapshot) => {
+        if (!snapshot.empty) {
+          letters = snapshot.docs.map(doc => doc.data());
+          saveLocal('leyla_letters', letters);
+          renderLetters();
+        }
+      }, (err) => console.error("Letters sync error", err));
+
+      const entriesCol = collection(db, 'artifacts', appId, 'public', 'data', 'entries');
+      onSnapshot(entriesCol, (snapshot) => {
+        if (!snapshot.empty) {
+          entries = snapshot.docs.map(doc => doc.data());
+          saveLocal('leyla_entries', entries);
+          renderFeed();
+        }
+      }, (err) => console.error("Entries sync error", err));
+
+      const milestonesCol = collection(db, 'artifacts', appId, 'public', 'data', 'milestones');
+      onSnapshot(milestonesCol, (snapshot) => {
+        if (!snapshot.empty) {
+          milestones = snapshot.docs.map(doc => doc.data());
+          saveLocal('leyla_milestones', milestones);
+          renderMilestones();
+        }
+      }, (err) => console.error("Milestones sync error", err));
+    }
+
+    function saveLocal(key, val) {
+      localStorage.setItem(key, JSON.stringify(val));
+    }
+
+    async function saveCloudDoc(collName, docId, data) {
+      if (db && user) {
+        try {
+          await setDoc(doc(db, 'artifacts', appId, 'public', 'data', collName, docId), data);
+        } catch (e) {
+          console.error("Cloud save failed:", e);
+        }
+      }
+    }
+
+    async function deleteCloudDoc(collName, docId) {
+      if (db && user) {
+        try {
+          await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', collName, docId));
+        } catch (e) {
+          console.error("Cloud delete failed:", e);
+        }
+      }
+    }
+
+    function startCountdown() {
+      const targetDate = new Date("February 1, 2027 00:00:00").getTime();
+
+      function update() {
+        const now = new Date().getTime();
+        const diff = targetDate - now;
+
+        if (diff <= 0) {
+          document.getElementById('countdown').innerHTML = `<div class="col-span-4 font-serif text-2xl font-bold text-amber-900">Welcome to the World, Leyla Sofía! 🎉</div>`;
+          return;
+        }
+
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const secs = Math.floor((diff % (1000 * 60)) / 1000);
+
+        document.getElementById('cd-days').textContent = days;
+        document.getElementById('cd-hours').textContent = hours;
+        document.getElementById('cd-mins').textContent = mins;
+        document.getElementById('cd-secs').textContent = secs;
+      }
+
+      update();
+      setInterval(update, 1000);
+    }
+
+    function renderLetters() {
+      const container = document.getElementById('letters-container');
+      container.innerHTML = '';
+
+      let filtered = letters;
+      if (activeLetterTab === 'Abu Titi') {
+        filtered = letters.filter(l => l.author.toLowerCase().includes('abu titi'));
+      } else if (activeLetterTab === 'Grandma') {
+        filtered = letters.filter(l => l.author.toLowerCase().includes('grandma'));
+      }
+
+      if (filtered.length === 0) {
+        container.innerHTML = `<p class="col-span-2 text-center text-amber-800 italic py-6 bg-white/60 rounded-2xl border border-amber-200">No letters found under this view. Click "Write a Special Letter" to add one!</p>`;
+        return;
+      }
+
+      filtered.forEach(item => {
+        const card = document.createElement('div');
+        card.className = "parchment border border-amber-200/80 rounded-2xl p-6 relative group hover:shadow-lg transition duration-300 flex flex-col justify-between";
+        
+        let badgeColor = "bg-amber-100 text-amber-800 border-amber-300";
+        if (item.author.toLowerCase().includes('abu titi')) {
+          badgeColor = "bg-terracotta-100 text-terracotta-700 border-terracotta-300";
+        } else if (item.author.toLowerCase().includes('grandma')) {
+          badgeColor = "bg-amber-200 text-amber-900 border-amber-400";
+        }
+
+        card.innerHTML = `
+          <div>
+            <div class="flex items-center justify-between mb-3 border-b border-amber-200/60 pb-2">
+              <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold border ${badgeColor}">
+                <i class="fa-solid fa-feather"></i> Letter from: ${item.author || "Family"}
+              </span>
+              <span class="text-xs font-semibold text-amber-700 bg-white/80 px-2.5 py-1 rounded-full border border-amber-200">${item.date}</span>
+            </div>
+            <h3 class="font-serif text-xl font-bold text-amber-950 mb-3">${item.title}</h3>
+            <p class="font-serif text-amber-900/90 text-sm leading-relaxed whitespace-pre-line italic bg-white/50 p-4 rounded-xl border border-amber-100">
+              "${item.content}"
+            </p>
+          </div>
+
+          <div class="flex justify-end gap-2 mt-4 pt-2 border-t border-amber-200/40">
+            <button onclick="editLetter('${item.id}')" class="text-xs text-amber-700 hover:text-amber-900 font-medium px-2 py-1 rounded hover:bg-amber-100/60">
+              <i class="fa-solid fa-pen"></i> Edit
+            </button>
+            <button onclick="deleteLetter('${item.id}')" class="text-xs text-terracotta-600 hover:text-terracotta-800 font-medium px-2 py-1 rounded hover:bg-terracotta-100/60">
+              <i class="fa-solid fa-trash"></i> Delete
+            </button>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function renderMilestones() {
+      const container = document.getElementById('milestones-grid');
+      container.innerHTML = '';
+
+      let completedCount = 0;
+
+      milestones.forEach(m => {
+        if (m.done) completedCount++;
+
+        const box = document.createElement('label');
+        box.className = `flex flex-col p-3 rounded-xl border cursor-pointer transition ${
+          m.done ? 'bg-amber-100/70 border-amber-300 text-amber-950' : 'bg-white border-amber-200 text-amber-800 hover:bg-amber-50'
+        }`;
+        box.innerHTML = `
+          <div class="flex items-center gap-3">
+            <input type="checkbox" ${m.done ? 'checked' : ''} onchange="toggleMilestone('${m.id}')" class="w-4 h-4 text-amber-600 rounded border-amber-300 focus:ring-amber-500">
+            <span class="text-xs font-medium ${m.done ? 'line-through text-amber-700' : ''}">${m.text}</span>
+          </div>
+          ${m.updatedBy ? `<span class="text-[10px] text-amber-600 pl-7 mt-0.5">Updated by: ${m.updatedBy}</span>` : ''}
+        `;
+        container.appendChild(box);
+      });
+
+      const pct = Math.round((completedCount / milestones.length) * 100) || 0;
+      document.getElementById('milestone-progress-bar').style.width = `${pct}%`;
+      document.getElementById('milestone-progress-text').textContent = `${pct}% Completed (${completedCount}/${milestones.length})`;
+    }
+
+    function renderFeed() {
+      const container = document.getElementById('feed-container');
+      const category = document.getElementById('category-filter').value;
+      const search = document.getElementById('search-input').value.toLowerCase();
+
+      container.innerHTML = '';
+
+      let filtered = entries.filter(item => {
+        const matchesCategory = category === 'ALL' || item.category === category;
+        const matchesSearch = item.title.toLowerCase().includes(search) || 
+                              item.message.toLowerCase().includes(search) ||
+                              (item.author && item.author.toLowerCase().includes(search));
+        return matchesCategory && matchesSearch;
+      });
+
+      filtered.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+      if (filtered.length === 0) {
+        container.innerHTML = `<div class="bg-white rounded-2xl p-8 text-center text-amber-800 italic border border-amber-200">No memories found matching your search.</div>`;
+        return;
+      }
+
+      filtered.forEach(item => {
+        const card = document.createElement('article');
+        card.className = "bg-white rounded-3xl border border-amber-200/80 p-6 sm:p-8 shadow-sm hover:shadow-md transition space-y-4";
+        
+        const authorName = item.author || "Family Member";
+        let badgeColor = "bg-amber-100 text-amber-900 border-amber-200";
+        if (authorName.toLowerCase().includes("abu titi")) {
+          badgeColor = "bg-terracotta-100 text-terracotta-700 border-terracotta-200 font-bold";
+        } else if (authorName.toLowerCase().includes("grandma")) {
+          badgeColor = "bg-amber-200 text-amber-950 border-amber-300 font-bold";
+        }
+
+        card.innerHTML = `
+          <div class="flex flex-wrap items-center justify-between gap-2 border-b border-amber-100 pb-3">
+            <div class="flex items-center gap-2">
+              <span class="px-3 py-1 rounded-full text-xs font-semibold border ${badgeColor}">
+                <i class="fa-solid fa-user-heart text-[10px] mr-1"></i> Posted by: ${authorName}
+              </span>
+              <span class="px-2.5 py-1 bg-amber-50 text-amber-700 text-xs rounded-full border border-amber-200">
+                ${item.category}
+              </span>
+            </div>
+            <span class="text-xs text-amber-600 font-medium">${item.date}</span>
+          </div>
+
+          <h3 class="font-serif text-2xl font-bold text-amber-950">${item.title}</h3>
+
+          ${item.image ? `
+            <div class="rounded-2xl overflow-hidden max-h-80 border border-amber-100">
+              <img src="${item.image}" alt="${item.title}" class="w-full h-full object-cover" onerror="this.style.display='none'">
+            </div>
+          ` : ''}
+
+          <p class="text-amber-900/90 text-sm sm:text-base leading-relaxed whitespace-pre-line">${item.message}</p>
+
+          <div class="flex justify-end gap-3 pt-3 border-t border-amber-100 text-xs">
+            <button onclick="editEntry('${item.id}')" class="text-amber-700 hover:text-amber-900 font-medium">
+              <i class="fa-solid fa-pen"></i> Edit
+            </button>
+            <button onclick="deleteEntry('${item.id}')" class="text-terracotta-600 hover:text-terracotta-800 font-medium">
+              <i class="fa-solid fa-trash"></i> Delete
+            </button>
+          </div>
+        `;
+
+        container.appendChild(card);
+      });
+    }
+
+    // Handlers
+    window.toggleMilestone = function(id) {
+      const savedUser = localStorage.getItem('leyla_saved_author') || "Family";
+      milestones = milestones.map(m => m.id === id ? { ...m, done: !m.done, updatedBy: m.done ? "" : savedUser } : m);
+      saveLocal('leyla_milestones', milestones);
+      const updated = milestones.find(m => m.id === id);
+      if (updated) saveCloudDoc('milestones', id, updated);
+      renderMilestones();
+    };
+
+    window.deleteLetter = function(id) {
+      letters = letters.filter(l => l.id !== id);
+      saveLocal('leyla_letters', letters);
+      deleteCloudDoc('letters', id);
+      renderLetters();
+    };
+
+    window.editLetter = function(id) {
+      const item = letters.find(l => l.id === id);
+      if (!item) return;
+      document.getElementById('letter-id').value = item.id;
+      document.getElementById('letter-author-input').value = item.author || 'Abu Titi';
+      document.getElementById('letter-title-input').value = item.title;
+      document.getElementById('letter-date-input').value = item.date;
+      document.getElementById('letter-content-input').value = item.content;
+      
+      document.getElementById('modal-letter-title').textContent = "Edit Letter";
+      document.getElementById('modal-letter').classList.remove('hidden');
+    };
+
+    window.deleteEntry = function(id) {
+      entries = entries.filter(e => e.id !== id);
+      saveLocal('leyla_entries', entries);
+      deleteCloudDoc('entries', id);
+      renderFeed();
+    };
+
+    window.editEntry = function(id) {
+      const item = entries.find(e => e.id === id);
+      if (!item) return;
+      document.getElementById('entry-id').value = item.id;
+      document.getElementById('entry-author-input').value = item.author || '';
+      document.getElementById('entry-title-input').value = item.title;
+      document.getElementById('entry-category-input').value = item.category;
+      document.getElementById('entry-date-input').value = item.date;
+      document.getElementById('entry-image-input').value = item.image || '';
+      document.getElementById('entry-message-input').value = item.message;
+
+      document.getElementById('modal-entry-title').textContent = "Edit Story Memory";
+      document.getElementById('modal-entry').classList.remove('hidden');
+    };
+
+    document.addEventListener('DOMContentLoaded', () => {
+      startCountdown();
+      renderLetters();
+      renderMilestones();
+      renderFeed();
+      initFirebase();
+
+      // Tab Switching for Letters
+      document.querySelectorAll('.letter-tab').forEach(tabBtn => {
+        tabBtn.addEventListener('click', (e) => {
+          document.querySelectorAll('.letter-tab').forEach(b => {
+            b.classList.remove('bg-white', 'text-amber-900', 'shadow-sm');
+            b.classList.add('text-amber-800');
+          });
+          e.currentTarget.classList.add('bg-white', 'text-amber-900', 'shadow-sm');
+          e.currentTarget.classList.remove('text-amber-800');
+          
+          activeLetterTab = e.currentTarget.getAttribute('data-tab');
+          renderLetters();
+        });
+      });
+
+      // Filter/Search Listeners
+      document.getElementById('search-input').addEventListener('input', renderFeed);
+      document.getElementById('category-filter').addEventListener('change', renderFeed);
+
+      // Remembered Author Name from browser local storage
+      const savedAuthor = localStorage.getItem('leyla_saved_author') || '';
+
+      // Open Modal Handlers
+      document.getElementById('btn-open-entry-modal').addEventListener('click', () => {
+        document.getElementById('form-entry').reset();
+        document.getElementById('entry-id').value = '';
+        document.getElementById('entry-author-input').value = savedAuthor || 'Abu Titi';
+        document.getElementById('entry-date-input').value = new Date().toISOString().split('T')[0];
+        document.getElementById('modal-entry-title').textContent = "Add Family Story Memory";
+        document.getElementById('modal-entry').classList.remove('hidden');
+      });
+
+      document.getElementById('btn-open-letter-modal').addEventListener('click', () => {
+        document.getElementById('form-letter').reset();
+        document.getElementById('letter-id').value = '';
+        document.getElementById('letter-author-input').value = savedAuthor || 'Abu Titi';
+        document.getElementById('letter-date-input').value = new Date().toISOString().split('T')[0];
+        document.getElementById('modal-letter-title').textContent = "Write a Special Letter";
+        document.getElementById('modal-letter').classList.remove('hidden');
+      });
+
+      // Modal Closers
+      document.getElementById('btn-close-entry-modal').addEventListener('click', () => document.getElementById('modal-entry').classList.add('hidden'));
+      document.getElementById('btn-cancel-entry').addEventListener('click', () => document.getElementById('modal-entry').classList.add('hidden'));
+
+      document.getElementById('btn-close-letter-modal').addEventListener('click', () => document.getElementById('modal-letter').classList.add('hidden'));
+      document.getElementById('btn-cancel-letter').addEventListener('click', () => document.getElementById('modal-letter').classList.add('hidden'));
+
+      // Form Submit: Story Entry
+      document.getElementById('form-entry').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const authorName = document.getElementById('entry-author-input').value.trim();
+        if (authorName) localStorage.setItem('leyla_saved_author', authorName);
+
+        const id = document.getElementById('entry-id').value || `entry-${Date.now()}`;
+        const newEntry = {
+          id,
+          title: document.getElementById('entry-title-input').value,
+          author: authorName || "Family Member",
+          category: document.getElementById('entry-category-input').value,
+          date: document.getElementById('entry-date-input').value,
+          image: document.getElementById('entry-image-input').value,
+          message: document.getElementById('entry-message-input').value
+        };
+
+        const idx = entries.findIndex(item => item.id === id);
+        if (idx >= 0) entries[idx] = newEntry;
+        else entries.unshift(newEntry);
+
+        saveLocal('leyla_entries', entries);
+        saveCloudDoc('entries', id, newEntry);
+        renderFeed();
+        document.getElementById('modal-entry').classList.add('hidden');
+      });
+
+      // Form Submit: Special Letter
+      document.getElementById('form-letter').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const authorName = document.getElementById('letter-author-input').value.trim();
+        if (authorName) localStorage.setItem('leyla_saved_author', authorName);
+
+        const id = document.getElementById('letter-id').value || `letter-${Date.now()}`;
+        const newLetter = {
+          id,
+          author: authorName || "Abu Titi",
+          title: document.getElementById('letter-title-input').value,
+          date: document.getElementById('letter-date-input').value,
+          content: document.getElementById('letter-content-input').value
+        };
+
+        const idx = letters.findIndex(item => item.id === id);
+        if (idx >= 0) letters[idx] = newLetter;
+        else letters.unshift(newLetter);
+
+        saveLocal('leyla_letters', letters);
+        saveCloudDoc('letters', id, newLetter);
+        renderLetters();
+        document.getElementById('modal-letter').classList.add('hidden');
+      });
+
+      // Export JSON Data Backup
+      document.getElementById('btn-export-data').addEventListener('click', () => {
+        const dump = {
+          letters,
+          entries,
+          milestones,
+          exportedAt: new Date().toISOString()
+        };
+        const blob = new Blob([JSON.stringify(dump, null, 2)], { type: 'application/json' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = `leyla-sofia-journal-backup.json`;
+        a.click();
+      });
+
+    });
+  </script>
+</body>
+</html>
