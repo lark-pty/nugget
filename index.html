@@ -106,7 +106,7 @@
         Leyla Sofía's Life Journal
       </h1>
       <p class="max-w-2xl mx-auto text-amber-800/90 text-sm sm:text-base leading-relaxed mb-8">
-        A sun-lit family sanctuary of stories, prayers, letters from Abu Titi & Grandma, and milestone memories for our sweet Leyla Sofía.
+        A sun-lit family sanctuary of stories, prayers, letters from Grandmas &amp; Grandpas, Aunties &amp; Uncles, Madrina &amp; Padrino, and Abu Titi and milestone memories for our sweet Leyla Sofía.
       </p>
 
       <!-- Countdown Timer Box -->
@@ -184,11 +184,20 @@
           <button id="tab-all-letters" class="letter-tab px-4 py-2 text-xs sm:text-sm font-bold rounded-xl transition bg-white text-amber-900 shadow-sm" data-tab="ALL">
             All Letters
           </button>
-          <button id="tab-abutiti-letters" class="letter-tab px-4 py-2 text-xs sm:text-sm font-bold rounded-xl transition text-amber-800 hover:text-amber-950" data-tab="Abu Titi">
-            <i class="fa-solid fa-heart text-terracotta-500 mr-1"></i> Abu Titi's
+          <button id="tab-grandma-letters" class="letter-tab px-4 py-2 text-xs sm:text-sm font-bold rounded-xl transition text-amber-800 hover:text-amber-950" data-tab="Grandma">
+            <i class="fa-solid fa-crown text-amber-600 mr-1"></i> Mom & Dad
           </button>
           <button id="tab-grandma-letters" class="letter-tab px-4 py-2 text-xs sm:text-sm font-bold rounded-xl transition text-amber-800 hover:text-amber-950" data-tab="Grandma">
-            <i class="fa-solid fa-crown text-amber-600 mr-1"></i> Grandma's
+            <i class="fa-solid fa-crown text-amber-600 mr-1"></i> Grandmas & Grandpas
+          </button>
+          <button id="tab-abutiti-letters" class="letter-tab px-4 py-2 text-xs sm:text-sm font-bold rounded-xl transition text-amber-800 hover:text-amber-950" data-tab="Abu Titi">
+            <i class="fa-solid fa-heart text-terracotta-500 mr-1"></i> Aunties & Uncles
+          </button>
+          <button id="tab-abutiti-letters" class="letter-tab px-4 py-2 text-xs sm:text-sm font-bold rounded-xl transition text-amber-800 hover:text-amber-950" data-tab="Abu Titi">
+            <i class="fa-solid fa-heart text-terracotta-500 mr-1"></i> Madrina & Padrino
+          </button>
+          <button id="tab-abutiti-letters" class="letter-tab px-4 py-2 text-xs sm:text-sm font-bold rounded-xl transition text-amber-800 hover:text-amber-950" data-tab="Abu Titi">
+            <i class="fa-solid fa-heart text-terracotta-500 mr-1"></i> Abu Titi's
           </button>
         </div>
       </div>
@@ -255,7 +264,7 @@
 
   <footer class="mt-16 bg-amber-900 text-amber-100 py-10 border-t-4 border-amber-600">
     <div class="max-w-5xl mx-auto px-4 text-center space-y-4">
-      <p class="font-serif text-2xl italic font-semibold">"Named with love after Abu Titi, cherished by Grandma and all our family."</p>
+      <p class="font-serif text-2xl italic font-semibold">"Named with love after Abu Titi and cherished by all our family."</p>
       <p class="text-xs text-amber-300/80">Created by LRaymondo &bull; with love for Leyla Sofía &bull; Digital Memory Journal &bull; Mar 2027</p>
     </div>
   </footer>
@@ -484,18 +493,15 @@
     ];
 
     const defaultMilestones = [
-      { id: "m01", text: "Announcement", done: true, updatedBy: "Mom", image: "", video: "" },
-      { id: "m02", text: "First Ultrasound Photo", done: false, updatedBy: "", image: "", video: "" },
-      { id: "m03", text: "Madrina & Padrino", done: false, updatedBy: "", image: "", video: "" },
-      { id: "m04", text: "Gender Reveal", done: false, updatedBy: "", image: "", video: "" },
-      { id: "m05", text: "Nursery Room Complete", done: false, updatedBy: "", image: "", video: "" },
-      { id: "m06", text: "Baby Shower", done: false, updatedBy: "", image: "", video: "" },
-      { id: "m07", text: "Welcome to the World (Mar 2027)", done: false, updatedBy: "", image: "", video: "" },
-      { id: "m08", text: "First Visit with Grandmas and Grandpas", done: false, updatedBy: "", image: "", video: "" },
-      { id: "m09", text: "First Visit with Aunties & Uncles", done: false, updatedBy: "", image: "", video: "" },
-      { id: "m09", text: "First Visit with Abu Titi", done: false, updatedBy: "", image: "", video: "" },
-      { id: "m10", text: "First Smile", done: false, updatedBy: "", image: "", video: "" },
-      { id: "m11", text: "First Steps", done: false, updatedBy: "", image: "", video: "" }
+      { id: "m1", text: "Announcement", done: true, updatedBy: "Mom", image: "", video: "" },
+      { id: "m2", text: "First Ultrasound Photo", done: false, updatedBy: "", image: "", video: "" },
+      { id: "m3", text: "Madrina & Padrino", done: false, updatedBy: "", image: "", video: "" },
+      { id: "m4", text: "Gender Reveal", done: false, updatedBy: "", image: "", video: "" },
+      { id: "m5", text: "Nursery Room Completed", done: false, updatedBy: "", image: "", video: "" },
+      { id: "m5", text: "Baby Shower", done: false, updatedBy: "", image: "", video: "" },
+      { id: "m6", text: "Welcome to the World (Mar 2027)", done: false, updatedBy: "", image: "", video: "" },
+      { id: "m8", text: "First Smile", done: false, updatedBy: "", image: "", video: "" },
+      { id: "m9", text: "First Steps", done: false, updatedBy: "", image: "", video: "" }
     ];
 
     let letters = JSON.parse(localStorage.getItem('leyla_letters')) || defaultLetters;
