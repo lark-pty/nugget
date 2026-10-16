@@ -579,15 +579,15 @@
     async function initFirebase() {
       try {
         // REPLACE WITH YOUR ACTUAL FIREBASE CONFIG OBJECT FROM FIREBASE CONSOLE:
-        const firebaseConfig = {
-          apiKey: "YOUR_API_KEY",
-          authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-          projectId: "YOUR_PROJECT_ID",
-          storageBucket: "YOUR_PROJECT_ID.firebasestorage.app",
-          messagingSenderId: "YOUR_SENDER_ID",
-          appId: "YOUR_APP_ID"
-        };
-
+		const firebaseConfig = {
+		  apiKey: "AIzaSyC4kMuaPxe9bmCDBJomPo5I1kcOTSaTBmI",
+		  authDomain: "nugget-journal.firebaseapp.com",
+		  projectId: "nugget-journal",
+		  storageBucket: "nugget-journal.firebasestorage.app",
+		  messagingSenderId: "431954975741",
+		  appId: "1:431954975741:web:d60890fe95ee88fbaf9794",
+		  measurementId: "G-06S88B52CN"
+		};
         const app = initializeApp(firebaseConfig);
         auth = getAuth(app);
         db = getFirestore(app);
